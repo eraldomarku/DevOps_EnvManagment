@@ -1,12 +1,7 @@
 # Maven
 
-
-# Build your Java project and run tests with Apache Maven.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/java
-
 stages:
-- stage: A
+- stage: uatBacpacToAzureBlob
   jobs:
   - job: extractDbAndUploadToAzureBlob
     pool:
@@ -20,6 +15,21 @@ stages:
     - task: PowerShell@2
       inputs:
         filePath: 'db_env_managment_scripts/upload_bacpac_to_azureblob.ps1'
+
+- stage: bacpacFromAzureToTier1Import
+  jobs:
+  - job: downloadBacpacAndImportIntoDb
+    pool:
+      name: Nodepool
+      demands:
+        - agent.name -equals tier1_agent
+    steps:
+    - task: PowerShell@2
+      inputs:
+        filePath: './db_env_managment_scripts/download_bacpac_from_azureblob.ps1'
+    - task: PowerShell@2
+      inputs:
+        filePath: 'db_env_managment_scripts/import_db_from_bacpac.ps1'
 
          
 
