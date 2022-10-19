@@ -1,6 +1,28 @@
-# Maven
+
 
 stages:
+- stage: setUpEnvironments
+  jobs:
+  - job: setUpUAT
+    pool:
+      name: Nodepool
+      demands:
+        - agent.name -equals uat_simulation_agent
+    steps:
+    - task: PowerShell@2
+      inputs:
+        filePath: './db_env_managment_scripts/install_env_dependencies.ps1'
+  - job: setUpTier1
+    pool:
+      name: Nodepool
+      demands:
+        - agent.name -equals tier1_agent 
+    steps:
+    - task: PowerShell@2
+      inputs:
+        filePath: './db_env_managment_scripts/install_env_dependencies.ps1'
+    
+
 - stage: uatBacpacToAzureBlob
   jobs:
   - job: extractDbAndUploadToAzureBlob
