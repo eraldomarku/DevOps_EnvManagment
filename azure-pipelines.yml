@@ -15,3 +15,6 @@ steps:
 - task: PowerShell@2
   inputs:
     filePath: './db_env_managment_scripts/export_db_to_bacpac.ps1'
+- task: PowerShell@2
+  inputs:
+    filePath: 'db_env_managment_scripts/upload_bacpac_to_azureblob.ps1'
