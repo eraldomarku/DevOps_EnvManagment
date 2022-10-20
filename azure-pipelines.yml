@@ -4,6 +4,7 @@ stages:
 - stage: setUpEnvironments
   jobs:
   - job: setUpUAT
+    timeoutInMinutes: 360
     pool:
       name: Nodepool
       demands:
@@ -13,6 +14,7 @@ stages:
       inputs:
         filePath: './db_env_managment_scripts/install_env_dependencies.ps1'
   - job: setUpTier1
+    timeoutInMinutes: 360
     pool:
       name: Nodepool
       demands:
@@ -26,6 +28,7 @@ stages:
 - stage: uatBacpacToAzureBlob
   jobs:
   - job: extractDbAndUploadToAzureBlob
+    timeoutInMinutes: 360
     pool:
       name: Nodepool
       demands:
@@ -41,6 +44,7 @@ stages:
 - stage: bacpacFromAzureToTier1Import
   jobs:
   - job: downloadBacpacAndImportIntoDb
+    timeoutInMinutes: 360
     pool:
       name: Nodepool
       demands:
