@@ -4,11 +4,10 @@ if (Test-Path $bacpacs_path) {
     if (Test-Path $bacpac_file_path) {
         Write-Host "Removing File That Also Exists"
         Remove-Item $bacpac_file_path -Force
-        New-D365Bacpac -ExportModeTier1 -ShowOriginalProgress -BacpacFile $bacpac_file_path
     }
 }
 else
 {
     New-Item $bacpacs_path -itemType Directory
-    New-D365Bacpac -ExportModeTier1 -ShowOriginalProgress -BacpacFile $bacpac_file_path
 }
+New-D365Bacpac -ExportModeTier1 -ShowOriginalProgress -BacpacFile $bacpac_file_path
