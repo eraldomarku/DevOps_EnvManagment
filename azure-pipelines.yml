@@ -27,7 +27,7 @@ stages:
 - stage: setUpEnvironments
   jobs:
   - job: setUpUAT
-    timeoutInMinutes: ${{variables.jobs_timeout}
+    timeoutInMinutes: ${{variables.jobs_timeout}}
     pool:
       name: Nodepool
       demands:
@@ -51,7 +51,7 @@ stages:
 - stage: VmA_database_to_Azure_Storage
   jobs:
   - job: extract_and_upload
-    timeoutInMinutes: ${{variables.jobs_timeout}
+    timeoutInMinutes: ${{variables.jobs_timeout}}
     pool:
       name: Nodepool
       demands:
@@ -69,7 +69,7 @@ stages:
 - stage: VmB_import_database_from_Azure_Storage
   jobs:
   - job: download_and_import
-    timeoutInMinutes: ${{variables.jobs_timeout}
+    timeoutInMinutes: ${{variables.jobs_timeout}}
     pool:
       name: Nodepool
       demands:
