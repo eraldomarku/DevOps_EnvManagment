@@ -1,3 +1,4 @@
+#
 # First argument is the bacpacs path
 # Second argument is name of the db file
 $db_path=$args[0] 
