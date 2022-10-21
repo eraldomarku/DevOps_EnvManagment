@@ -1,3 +1,4 @@
+#
 $bacpacs_path = "C:\Bacpacs"
 $bacpac_file_path = "C:\Bacpacs\db_dev_1.bacpac"
 
