@@ -37,7 +37,7 @@ stages:
       inputs:
         filePath: 'db_env_managment_scripts/install_env_dependencies.ps1'
   - job: setUpTier1
-    timeoutInMinutes: ${{variables.jobs_timeout}
+    timeoutInMinutes: ${{variables.jobs_timeout}}
     pool:
       name: Nodepool
       demands:
