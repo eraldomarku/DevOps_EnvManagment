@@ -29,7 +29,7 @@ stages:
         filePath: './db_env_managment_scripts/install_env_dependencies.ps1'
     
 
-- stage: VM_A database to Azure Storage
+- stage: VMA database to Azure Storage
   jobs:
   - job: extract_and_upload
     timeoutInMinutes: 360
