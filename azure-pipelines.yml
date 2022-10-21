@@ -2,11 +2,23 @@ variables:
 - name: extract_db_path
   value: "C:/Bacpacs/" 
 
+- name: download_db_path
+  value: "C:/downloadedBacpacs/"
+
 - name: db_name
   value: "db_dev_1.bacpac"
 
 - name: blob_url
   value: "https://apsiaem01ada09a20ec1a713.blob.core.windows.net/retail-cdx-down-68719476736?sp=racwdli&st=2022-10-19T10:51:08Z&se=2023-02-02T19:51:08Z&spr=https&sv=2021-06-08&sr=c&sig=kiGgyozma%2FZWom%2BtWz%2F7ynf8rEoXCn3XP5DjigiS65Q%3D"
+
+- name: sql_db_name
+  value: "AxDB_updated"
+
+- name: agent_A
+  value: "uat_simulation_agent"
+
+- name: agent_B
+  value: "tier1_agent"
 
 stages:
 - stage: setUpEnvironments
@@ -16,21 +28,21 @@ stages:
     pool:
       name: Nodepool
       demands:
-        - agent.name -equals uat_simulation_agent
+        - agent.name -equals ${{variables.agent_A}}
     steps:
     - task: PowerShell@2
       inputs:
-        filePath: './db_env_managment_scripts/install_env_dependencies.ps1'
+        filePath: 'db_env_managment_scripts/install_env_dependencies.ps1'
   - job: setUpTier1
     timeoutInMinutes: 360
     pool:
       name: Nodepool
       demands:
-        - agent.name -equals tier1_agent 
+        - agent.name -equals ${{variables.agent_B}} 
     steps:
     - task: PowerShell@2
       inputs:
-        filePath: './db_env_managment_scripts/install_env_dependencies.ps1'
+        filePath: 'db_env_managment_scripts/install_env_dependencies.ps1'
     
 
 - stage: VmA_database_to_Azure_Storage
@@ -40,31 +52,34 @@ stages:
     pool:
       name: Nodepool
       demands:
-        - agent.name -equals uat_simulation_agent
+        - agent.name -equals ${{variables.agent_A}}
     steps:
     - task: PowerShell@2
       inputs:
         arguments: '${{variables.extract_db_path}} ${{variables.db_name}}'
-        filePath: './db_env_managment_scripts/export_db.ps1'
+        filePath: 'db_env_managment_scripts/export_db.ps1'
     - task: PowerShell@2
       inputs:
+        arguments: '${{variables.extract_db_path}} ${{variables.db_name}} ${{variables.blob_url}}'
         filePath: 'db_env_managment_scripts/upload_db.ps1'
 
-- stage: bacpacFromAzureToTier1Import
+- stage: VmB_import_database_from_Azure_Storage
   jobs:
-  - job: downloadBacpacAndImportIntoDb
+  - job: download_and_import
     timeoutInMinutes: 360
     pool:
       name: Nodepool
       demands:
-        - agent.name -equals tier1_agent
+        - agent.name -equals ${{variables.agent_B}}
     steps:
     - task: PowerShell@2
       inputs:
-        filePath: './db_env_managment_scripts/download_bacpac_from_azureblob.ps1'
+        arguments: '${{variables.download_db_path}} ${{variables.db_name}} ${{variables.blob_url}}'
+        filePath: 'db_env_managment_scripts/download_db.ps1'
     - task: PowerShell@2
       inputs:
-        filePath: 'db_env_managment_scripts/import_db_from_bacpac.ps1'
+        arguments: '${{variables.download_db_path}} ${{variables.db_name}} ${{variables.sql_db_name}}'
+        filePath: 'db_env_managment_scripts/import_db.ps1'
 
          
 
