@@ -1,17 +1,18 @@
-#
-$bacpacs_path = "C:\Bacpacs"
-$bacpac_file_path = "C:\Bacpacs\db_dev_1.bacpac"
+# First argument is the bacpacs path
+# Second argument is name of the db file
+$db_path=$args[0] 
+$db_name=$args[1]
 
-if (Test-Path $bacpacs_path) {
-    if (Test-Path $bacpac_file_path) {
-        Write-Host "Removing File That Also Exists"
-        Remove-Item $bacpac_file_path -Force
+if (Test-Path $db_path) {
+    if (Test-Path "${db_path}${db_name}") {
+        Write-Host "Removing file that also exist"
+        Remove-Item "${db_path}${db_name}" -Force
     }
 }
 else
 {
-    New-Item $bacpacs_path -itemType Directory
+    New-Item $db_path -itemType Directory
 }
 Stop-D365Environment -All
-New-D365Bacpac -ExportModeTier1 -ShowOriginalProgress -BacpacFile $bacpac_file_path
+New-D365Bacpac -ExportModeTier1 -ShowOriginalProgress -BacpacFile "${db_path}${db_name}"
 Start-D365Environment -All
