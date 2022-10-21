@@ -20,11 +20,14 @@ variables:
 - name: agent_B
   value: "tier1_agent"
 
+- name: jobs_timeout
+  value: 360
+
 stages:
 - stage: setUpEnvironments
   jobs:
   - job: setUpUAT
-    timeoutInMinutes: 360
+    timeoutInMinutes: ${{variables.jobs_timeout}
     pool:
       name: Nodepool
       demands:
@@ -34,7 +37,7 @@ stages:
       inputs:
         filePath: 'db_env_managment_scripts/install_env_dependencies.ps1'
   - job: setUpTier1
-    timeoutInMinutes: 360
+    timeoutInMinutes: ${{variables.jobs_timeout}
     pool:
       name: Nodepool
       demands:
@@ -48,7 +51,7 @@ stages:
 - stage: VmA_database_to_Azure_Storage
   jobs:
   - job: extract_and_upload
-    timeoutInMinutes: 360
+    timeoutInMinutes: ${{variables.jobs_timeout}
     pool:
       name: Nodepool
       demands:
@@ -66,7 +69,7 @@ stages:
 - stage: VmB_import_database_from_Azure_Storage
   jobs:
   - job: download_and_import
-    timeoutInMinutes: 360
+    timeoutInMinutes: ${{variables.jobs_timeout}
     pool:
       name: Nodepool
       demands:
