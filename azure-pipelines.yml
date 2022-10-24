@@ -1,3 +1,4 @@
+####################################################################################################################################################
 # GLOBAL VARIABLES
 variables:
 # Path where db .bacpac will be extracted from VmA 
@@ -94,10 +95,10 @@ stages:
       demands:
         - agent.name -equals ${{variables.agent_A}}
     steps:
- #  - task: PowerShell@2
- #     inputs:
- #       arguments: '${{variables.extract_db_path}} ${{variables.db_name}}'
- #       filePath: 'db_env_managment_scripts/export_db.ps1'
+    - task: PowerShell@2
+      inputs:
+        arguments: '${{variables.extract_db_path}} ${{variables.db_name}}'
+        filePath: 'db_env_managment_scripts/export_db.ps1'
     - task: PowerShell@2
       inputs:
         arguments: "${{variables.extract_db_path}} ${{variables.db_name}} '${{variables.blob_url}}'" #as blob is a url is passed with ' ' because contains special charcater &
