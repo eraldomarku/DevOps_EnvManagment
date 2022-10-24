@@ -98,11 +98,11 @@ stages:
     - task: PowerShell@2
       inputs:
         arguments: '${{variables.extract_db_path}} ${{variables.db_name}}'
-        filePath: 'db_env_managment_scripts/export_db.ps1'
+        filePath: ${{variables.script_export_db}}
     - task: PowerShell@2
       inputs:
         arguments: "${{variables.extract_db_path}} ${{variables.db_name}} '${{variables.blob_url}}'" #as blob is a url is passed with ' ' because contains special charcater &
-        filePath: 'db_env_managment_scripts/upload_db.ps1'
+        filePath: ${{variables.script_upload_db}}
 
 # Third stage download .bacpac db from azure storage blob and imports it to VmB db
 - stage: VmB_import_database_from_Azure_Storage
@@ -117,11 +117,11 @@ stages:
     - task: PowerShell@2
       inputs:
         arguments: "${{variables.download_db_path}} ${{variables.db_name}} '${{variables.blob_url}}'"
-        filePath: 'db_env_managment_scripts/download_db.ps1'
+        filePath: ${{variables.script_download_db}}
     - task: PowerShell@2
       inputs:
         arguments: '${{variables.download_db_path}} ${{variables.db_name}} ${{variables.sql_db_name}}'
-        filePath: 'db_env_managment_scripts/import_db.ps1'
+        filePath: ${{variables.script_import_db}}
 
          
 
