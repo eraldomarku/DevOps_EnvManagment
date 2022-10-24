@@ -3,7 +3,8 @@
 # Third argument is the url of the blob to store the db
 $db_path=$args[0] 
 $db_name=$args[1]
-$blob_url=$args[2]
+$blob_url="\$args[2]"
+Write-Output $blob_url
 
 # If the file exists it will be replaced
 #Write-Output $blob_url
