@@ -11,7 +11,7 @@ if(Get-D365Database AxDB_original){
     Remove-D365Database -DatabaseName AxDB_original
 }
 # Import db bacpac into "sql_db_name" database created
-Import-D365Bacpac -ImportModeTier1 -BacpacFile "${db_path}${db_name}" -NewDatabaseName ${sql_db_name}
+Import-D365Bacpac -ImportModeTier1 -BacpacFile "${db_path}${db_name}" -NewDatabaseName "${sql_db_name}"
 # We need to stop all D365FO related services, to ensure that our D365FO database isn't being lock when we are going to update it.
 Stop-D365Environment -All
 # With the newly created "sql_db_name" database, we will be switching it in as the D365FO database
