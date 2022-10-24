@@ -1,3 +1,4 @@
+# GLOBAL VARIABLES
 variables:
 # Path where db .bacpac will be extracted from VmA 
 - name: extract_db_path
@@ -19,6 +20,10 @@ variables:
 - name: sql_db_name
   value: "AxDB_updated"
 
+# Name of agent-pool 
+- name: pool
+  value: "Nodepool"
+
 # Name of agent installed on VmA
 - name: agent_A
   value: "uat_simulation_agent"
@@ -30,6 +35,29 @@ variables:
 # Timeout after which the pipeline will be interrupted
 - name: jobs_timeout
   value: 360
+# ------------------------------------------------------------------------------------------------------------------------------------------
+# SCIRPTS VARIABLES
+# Script that sets environments 
+- name: script_set_environments
+  value: 'db_env_managment_scripts/set_environments.ps1'
+
+# Script that exports db .bacpac from VmA db
+- name: script_export_db
+  value: 'db_env_managment_scripts/export_db.ps1'
+
+# Script that uploads db .bacpac from VmA to Azure storage blob
+- name: script_upload_db
+  value: 'db_env_managment_scripts/upload_db.ps1'
+
+# Script that downloads db .bacpac from Azure storage blob to VmB
+- name: script_download_db
+  value: 'db_env_managment_scripts/download_db.ps1'
+
+# Script that imports db .bacpac into VmB db
+- name: script_import_db
+  value: 'db_env_managment_scripts/import_db.ps1'
+
+#################################################################################################################################################
 
 stages:
 # First stage checks if NuGet, df365.tools are installed and the needed packages as d365sqlpackage and d365AzCopy 
@@ -38,48 +66,50 @@ stages:
   - job: set_VmA
     timeoutInMinutes: ${{variables.jobs_timeout}}
     pool:
-      name: Nodepool
+      name: ${{variables.pool}}
       demands:
         - agent.name -equals ${{variables.agent_A}}
     steps:
     - task: PowerShell@2
       inputs:
-        filePath: 'db_env_managment_scripts/set_environments.ps1'
+        filePath: ${{variables.script_set_environments}}
   - job: set_VmB
     timeoutInMinutes: ${{variables.jobs_timeout}}
     pool:
-      name: Nodepool
+      name: ${{variables.pool}}
       demands:
         - agent.name -equals ${{variables.agent_B}} 
     steps:
     - task: PowerShell@2
       inputs:
-        filePath: 'db_env_managment_scripts/install_env_dependencies.ps1'
+        filePath: ${{variables.script_set_environments}}
+
 # Second stage extract .bacpac db from VmA and upload it to blob azure storage    
 - stage: VmA_database_to_Azure_Storage
   jobs:
   - job: extract_and_upload
     timeoutInMinutes: ${{variables.jobs_timeout}}
     pool:
-      name: Nodepool
+      name: ${{variables.pool}}
       demands:
         - agent.name -equals ${{variables.agent_A}}
     steps:
-    - task: PowerShell@2
-      inputs:
-        arguments: '${{variables.extract_db_path}} ${{variables.db_name}}'
-        filePath: 'db_env_managment_scripts/export_db.ps1'
+ #  - task: PowerShell@2
+ #     inputs:
+ #       arguments: '${{variables.extract_db_path}} ${{variables.db_name}}'
+ #       filePath: 'db_env_managment_scripts/export_db.ps1'
     - task: PowerShell@2
       inputs:
         arguments: '${{variables.extract_db_path}} ${{variables.db_name}} ${{variables.blob_url}}'
         filePath: 'db_env_managment_scripts/upload_db.ps1'
+
 # Third stage download .bacpac db from azure storage blob and imports it to VmB db
 - stage: VmB_import_database_from_Azure_Storage
   jobs:
   - job: download_and_import
     timeoutInMinutes: ${{variables.jobs_timeout}}
     pool:
-      name: Nodepool
+      name: ${{variables.pool}}
       demands:
         - agent.name -equals ${{variables.agent_B}}
     steps:
