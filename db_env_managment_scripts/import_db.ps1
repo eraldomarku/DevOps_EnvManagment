@@ -7,7 +7,7 @@ $MSSQL_DATA_path=$args[3]
 if(Get-D365Database $sql_db_name){
     Remove-D365Database -DatabaseName $sql_db_name    
 }
-# The switch command will copy the original AxDB as AxDB_original and if it exist we will have an error so we must remove it
+# The switch command will copy the original AxDB as AxDB_original and if it exist we will have an error so we should remove it
 if(Get-D365Database AxDB_original){
     Remove-D365Database -DatabaseName AxDB_original
 }
