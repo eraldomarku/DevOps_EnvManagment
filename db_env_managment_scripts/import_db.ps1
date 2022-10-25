@@ -11,13 +11,16 @@ if(Get-D365Database $sql_db_name){
 if(Get-D365Database AxDB_original){
     Remove-D365Database -DatabaseName AxDB_original
 }
+
 # When creating the new sql db where we will import new db the (sql_db_name)_Primary.mdf should not exist so we check and eventually remove it
-if(Test-Path "${MSSQL_DATA_path}${sql_db_name}_Primary.mdf"){
-    # To remove this file is needed to stop sqlserver.exe service
-    stop-service -name MSSQLSERVER -PassThru
-    Remove-Item "${MSSQL_DATA_path}${sql_db_name}_Primary.mdf" -Force
-    start-service -name MSSQLSERVER -PassThru
-}
+# It could be generated in case of interrupted import 
+#if(Test-Path "${MSSQL_DATA_path}${sql_db_name}_Primary.mdf"){
+#    # To remove this file is needed to stop sqlserver.exe service
+#    stop-service -name MSSQLSERVER -PassThru
+#    Remove-Item "${MSSQL_DATA_path}${sql_db_name}_Primary.mdf" -Force
+#    start-service -name MSSQLSERVER -PassThru
+#}
+
 # Import db bacpac into "sql_db_name" database created
 Import-D365Bacpac -ImportModeTier1 -BacpacFile "${db_path}${db_name}" -NewDatabaseName "${sql_db_name}"
 # We need to stop all D365FO related services, to ensure that our D365FO database isn't being lock when we are going to update it.
