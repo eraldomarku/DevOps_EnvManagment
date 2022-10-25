@@ -1,6 +1,10 @@
 ####################################################################################################################################################
 # GLOBAL VARIABLES
 variables:
+#Path of MSSQL_DATA
+- name: MSSQL_DATA_path
+  value: G:/MSSQL_DATA/
+
 # Path where db .bacpac will be extracted from VmA 
 - name: extract_db_path
   value: "C:/Bacpacs/" 
@@ -120,7 +124,7 @@ stages:
         filePath: ${{variables.script_download_db}}
     - task: PowerShell@2
       inputs:
-        arguments: '${{variables.download_db_path}} ${{variables.db_name}} ${{variables.sql_db_name}}'
+        arguments: '${{variables.download_db_path}} ${{variables.db_name}} ${{variables.sql_db_name}} ${{variables.MSSQL_DATA_path}}'
         filePath: ${{variables.script_import_db}}
 
          
