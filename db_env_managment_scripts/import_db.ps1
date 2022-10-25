@@ -13,7 +13,7 @@ if(Get-D365Database AxDB_original){
 }
 # When creating the new sql db where we will import new db the (sql_db_name)_Primary.mdf should not exist so we check and eventually remove it
 if(Test-Path "${MSSQL_DATA_path}${sql_db_name}_Primary.mdf"){
-    Remove-Item "${MSSQL_DATA_path}${sql_db_name}_Primary.mdf"
+    Remove-Item "${MSSQL_DATA_path}${sql_db_name}_Primary.mdf" -Force
 }
 # Import db bacpac into "sql_db_name" database created
 Import-D365Bacpac -ImportModeTier1 -BacpacFile "${db_path}${db_name}" -NewDatabaseName "${sql_db_name}"
