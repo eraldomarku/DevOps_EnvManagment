@@ -24,9 +24,10 @@ $logical_to_physical_names=Invoke-SqlCmd -Query "SELECT name, physical_name FROM
 $logical_mdf_name=$logical_to_physical_names[0][0]
 $logical_ldf_name=$logical_to_physical_names[1][0]
 # Now we save the paths of mdf and ldf files without file.extension ex."G:\MSSQL_DATA\Prova444.mdf" -> "G:\MSSQL_DATA"
-$pyshical_mdf_path=$logical_to_physical_names[0][1].Substring(0, $pyshical_mdf_path.lastIndexOf('\'))
-$pyshical_ldf_path=$logical_to_physical_names[1][1].Substring(0, $pyshical_ldf_path.lastIndexOf('\'))
-
+$pyshical_mdf_path=$logical_to_physical_names[0][1]
+$pyshical_ldf_path=$logical_to_physical_names[1][1]
+$pyshical_mdf_path=$pyshical_mdf_path.Substring(0, $pyshical_mdf_path.lastIndexOf('\'))
+$pyshical_ldf_path=$pyshical_ldf_path.Substring(0, $pyshical_ldf_path.lastIndexOf('\'))
 # SET AxDB offilne
 Invoke-SqlCmd -Query "ALTER DATABASE AxDB_original SET OFFLINE"
 Invoke-SqlCmd -Query "GO"
@@ -55,8 +56,10 @@ $logical_to_physical_names=Invoke-SqlCmd -Query "SELECT name, physical_name FROM
 $logical_mdf_name=$logical_to_physical_names[0][0]
 $logical_ldf_name=$logical_to_physical_names[1][0]
 # Now we save the paths of mdf and ldf files without file.extension ex."G:\MSSQL_DATA\Prova444.mdf" -> "G:\MSSQL_DATA"
-$pyshical_mdf_path=$logical_to_physical_names[0][1].Substring(0, $pyshical_mdf_path.lastIndexOf('\'))
-$pyshical_ldf_path=$logical_to_physical_names[1][1].Substring(0, $pyshical_ldf_path.lastIndexOf('\'))
+$pyshical_mdf_path=$logical_to_physical_names[0][1]
+$pyshical_ldf_path=$logical_to_physical_names[1][1]
+$pyshical_mdf_path=$pyshical_mdf_path.Substring(0, $pyshical_mdf_path.lastIndexOf('\'))
+$pyshical_ldf_path=$pyshical_ldf_path.Substring(0, $pyshical_ldf_path.lastIndexOf('\'))
 
 # SET AxDB offilne
 Invoke-SqlCmd -Query "ALTER DATABASE AxDB SET OFFLINE"
