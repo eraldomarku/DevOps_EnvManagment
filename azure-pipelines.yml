@@ -3,6 +3,7 @@ variables:
 # This variables should not be touched because after the import of db in VmB we will have two databases with those names as setted
 - name: db_d365fo_name
   value: "AxDB"
+
 - name: db_backup_d365fo_name
   value: "AxDB_original"
 ####################################################################################################################################################
@@ -165,7 +166,6 @@ stages:
         filePath: ${{variables.script_import_db}}
 
 # Sixth stage renames mdf and ldf of created AxDB and AxDB_original as their names
-# Fifth VmB import downloaded bacpac from blob azure
 - stage: VmB_rename_mdf_ldf
   jobs:
   - job: rename_mdf_ldf
@@ -177,11 +177,11 @@ stages:
     steps:
     - task: PowerShell@2
       inputs:
-        arguments: '${{variables.db_d365fo_name}}'
+        arguments: 'AxDB'
         filePath: ${{variables.script_rename_mdf_ldf.ps1}}
     - task: PowerShell@2
       inputs:
-        arguments: '${{variables.db_backup_d365fo_name}}'
+        arguments: 'AxDB_original'
         filePath: ${{variables.script_rename_mdf_ldf.ps1}}
     - task: PowerShell@2
       inputs:
