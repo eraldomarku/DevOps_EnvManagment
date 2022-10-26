@@ -33,7 +33,7 @@ Invoke-SqlCmd -Query "GO"
 
 # RENAME PHYSICAL FILES
 Rename-Item -Path "$physical_mdf_path" -NewName "AxDB_original.mdf"
-Rename-Item -Path "$physical_ldf_path" -NewName "AxDB_original.ldf"
+Rename-Item -Path "$physical_ldf_path" -NewName "AxDB_original_log.ldf"
 
 # removing from the path the "\file.extension" -> "G:\MSSQL_DATA\Prova444.mdf" -> "G:\MSSQL_DATA"
 $physical_mdf_path=$physical_mdf_path.Substring(0, $physical_mdf_path.lastIndexOf('\'))
@@ -68,7 +68,7 @@ Invoke-SqlCmd -Query "GO"
 
 # RENAME PHYSICAL FILES
 Rename-Item -Path "$physical_mdf_path" -NewName "AxDB.mdf"
-Rename-Item -Path "$physical_ldf_path" -NewName "AxDB.ldf"
+Rename-Item -Path "$physical_ldf_path" -NewName "AxDB_log.ldf"
 
 # removing from the path the "\file.extension" -> "G:\MSSQL_DATA\Prova444.mdf" -> "G:\MSSQL_DATA"
 $physical_mdf_path=$physical_mdf_path.Substring(0, $physical_mdf_path.lastIndexOf('\'))
