@@ -1,9 +1,12 @@
+###################################################################################################################################################
+# This variables should not be touched because after the import of db in VmB we will have two databases with those names as setted
+- name: db_d365fo_name
+  value: "AxDB"
+
+- name: db_backup_d365fo_name
+  value: "AxDB_original"
 ####################################################################################################################################################
 # GLOBAL VARIABLES
-variables:
-#Path of MSSQL_DATA
-- name: MSSQL_DATA_path
-  value: G:/MSSQL_DATA/
 
 # Path where db .bacpac will be extracted from VmA 
 - name: extract_db_path
@@ -62,6 +65,16 @@ variables:
 - name: script_import_db
   value: 'db_env_managment_scripts/import_db.ps1'
 
+# Script that start and stop d365fo environment
+- name: script_start_stop_d365fo
+  value: 'db_env_managment_scripts/start_stop_d365fo_env.ps1'
+
+# Script that rename mdf and ldf as the name of the database
+- name: script_rename_mdf_ldf
+  value: 'db_env_managment_scripts/rename_mdf_ldf.ps1'
+
+
+
 #################################################################################################################################################
 
 stages:
@@ -89,10 +102,10 @@ stages:
       inputs:
         filePath: ${{variables.script_set_environments}}
 
-# Second stage extract .bacpac db from VmA and upload it to blob azure storage    
-- stage: VmA_database_to_Azure_Storage
+# Second stage extract .bacpac db from VmA    
+- stage: VmA_export_db
   jobs:
-  - job: extract_and_upload
+  - job: export_db
     timeoutInMinutes: ${{variables.jobs_timeout}}
     pool:
       name: ${{variables.pool}}
@@ -103,15 +116,26 @@ stages:
       inputs:
         arguments: '${{variables.extract_db_path}} ${{variables.db_name}}'
         filePath: ${{variables.script_export_db}}
+
+# Third stage extract .bacpac db from VmA and upload it to blob azure storage    
+- stage: VmA_upload_db_to_Azure_blob
+  jobs:
+  - job: upload_db
+    timeoutInMinutes: ${{variables.jobs_timeout}}
+    pool:
+      name: ${{variables.pool}}
+      demands:
+        - agent.name -equals ${{variables.agent_A}}
+    steps:
     - task: PowerShell@2
       inputs:
         arguments: "${{variables.extract_db_path}} ${{variables.db_name}} '${{variables.blob_url}}'" #as blob is a url is passed with ' ' because contains special charcater &
         filePath: ${{variables.script_upload_db}}
 
-# Third stage download .bacpac db from azure storage blob and imports it to VmB db
-- stage: VmB_import_database_from_Azure_Storage
+# Fourth stage VmB download .bacpac db from azure storage blob
+- stage: VmB_download_db_from_Azure_blob
   jobs:
-  - job: download_and_import
+  - job: download_db
     timeoutInMinutes: ${{variables.jobs_timeout}}
     pool:
       name: ${{variables.pool}}
@@ -122,10 +146,47 @@ stages:
       inputs:
         arguments: "${{variables.download_db_path}} ${{variables.db_name}} '${{variables.blob_url}}'"
         filePath: ${{variables.script_download_db}}
+
+
+# Fifth VmB import downloaded bacpac from blob azure
+- stage: VmB_import_db
+  jobs:
+  - job: import_db
+    timeoutInMinutes: ${{variables.jobs_timeout}}
+    pool:
+      name: ${{variables.pool}}
+      demands:
+        - agent.name -equals ${{variables.agent_B}}
+    steps:
+    - task: PowerShell@2
+      inputs:
+        arguments: 'stop'
+        filePath: ${{variables.script_start_stop_d365fo}}
     - task: PowerShell@2
       inputs:
         arguments: '${{variables.download_db_path}} ${{variables.db_name}} ${{variables.sql_db_name}} ${{variables.MSSQL_DATA_path}}'
         filePath: ${{variables.script_import_db}}
+
+# Sixth stage renames mdf and ldf of created AxDB and AxDB_original as their names
+# Fifth VmB import downloaded bacpac from blob azure
+- stage: VmB_rename_mdf_ldf
+  jobs:
+  - job: rename_mdf_ldf
+    timeoutInMinutes: ${{variables.jobs_timeout}}
+    pool:
+      name: ${{variables.pool}}
+      demands:
+        - agent.name -equals ${{variables.agent_B}}
+    steps:
+    - task: PowerShell@2
+      inputs:
+        arguments: '${{variables.db_d365fo_name}}'
+        filePath: ${{variables.script_rename_mdf_ldf.ps1}}
+    - task: PowerShell@2
+      inputs:
+        arguments: '${{variables.db_backup_d365fo_name}}'
+        filePath: ${{variables.script_rename_mdf_ldf.ps1}}
+
 
          
 
