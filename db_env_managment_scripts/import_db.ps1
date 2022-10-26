@@ -3,7 +3,7 @@ $db_name=$args[1]
 $sql_db_name=$args[2]
 
 # We need to stop all D365FO related services, to ensure that our D365FO database isn't being lock when we are going to update it.
-##Stop-D365Environment -All
+Stop-D365Environment -All
 # We will check if old db exist we will remove it
 ##if(Get-D365Database AxDB_original){
 ##    Remove-D365Database -DatabaseName AxDB_original    
