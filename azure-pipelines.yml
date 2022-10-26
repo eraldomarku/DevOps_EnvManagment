@@ -2,7 +2,6 @@
 # This variables should not be touched because after the import of db in VmB we will have two databases with those names as setted
 - name: db_d365fo_name
   value: "AxDB"
-
 - name: db_backup_d365fo_name
   value: "AxDB_original"
 ####################################################################################################################################################
