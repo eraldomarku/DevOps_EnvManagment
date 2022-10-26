@@ -40,8 +40,8 @@ $physical_mdf_path=$physical_mdf_path.Substring(0, $physical_mdf_path.lastIndexO
 $physical_ldf_path=$physical_ldf_path.Substring(0, $physical_ldf_path.lastIndexOf('\'))
 
 # Change path of the logical names
-Invoke-SqlCmd -Query "alter database AxDB_original modify file (name = '$logical_mdf_name', filename = ''$physical_mdf_path'\AxDB_original.mdf')" -Verbose
-Invoke-SqlCmd -Query "alter database AxDB_original modify file (name = '$logical_ldf_name', filename = ''$physical_ldf_path'\AxDB_original_log.ldf')" -Verbose
+Invoke-SqlCmd -Query "alter database AxDB_original modify file (name = \$logical_mdf_name, filename = '\$physical_mdf_path\AxDB_original.mdf')" -Verbose
+Invoke-SqlCmd -Query "alter database AxDB_original modify file (name = \$logical_ldf_name, filename = '\$physical_ldf_path\AxDB_original_log.ldf')" -Verbose
 Invoke-SqlCmd -Query "GO"
 
 # SET DB ONLINE
@@ -75,8 +75,8 @@ $physical_mdf_path=$physical_mdf_path.Substring(0, $physical_mdf_path.lastIndexO
 $physical_ldf_path=$physical_ldf_path.Substring(0, $physical_ldf_path.lastIndexOf('\'))
 
 # Change path of the logical names
-Invoke-SqlCmd -Query "alter database AxDB modify file (name = '$logical_mdf_name', filename = ''$physical_mdf_path'\AxDB.mdf')" -Verbose
-Invoke-SqlCmd -Query "alter database AxDB modify file (name = '$logical_ldf_name', filename = ''$physical_ldf_path'\AxDB_log.ldf')" -Verbose
+Invoke-SqlCmd -Query "alter database AxDB modify file (name = \$logical_mdf_name, filename = '\$physical_mdf_path\AxDB.mdf')" -Verbose
+Invoke-SqlCmd -Query "alter database AxDB modify file (name = \$logical_ldf_name, filename = '\$physical_ldf_path\AxDB_log.ldf')" -Verbose
 Invoke-SqlCmd -Query "GO"
 
 # SET DB ONLINE
