@@ -177,16 +177,16 @@ stages:
     steps:
     - task: PowerShell@2
       inputs:
-        arguments: 'AxDB'
-        filePath: ${{variables.script_rename_mdf_ldf.ps1}}
+        arguments: '${{variables.db_d365fo_name}}'
+        filePath: '${{variables.script_rename_mdf_ldf.ps1}}'
     - task: PowerShell@2
       inputs:
-        arguments: 'AxDB_original'
-        filePath: ${{variables.script_rename_mdf_ldf.ps1}}
+        arguments: '${{variables.db_backup_d365fo_name}}'
+        filePath: '${{variables.script_rename_mdf_ldf.ps1}}'
     - task: PowerShell@2
       inputs:
         arguments: 'start'
-        filePath: ${{variables.script_start_stop_d365fo}}
+        filePath: '${{variables.script_start_stop_d365fo}}'
     
 
 
