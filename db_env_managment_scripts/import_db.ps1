@@ -33,8 +33,8 @@ Invoke-SqlCmd -Query "ALTER DATABASE AxDB_original SET OFFLINE"
 Invoke-SqlCmd -Query "GO"
 
 # RENAME PHYSICAL FILES
-Rename-Item -Path "${physical_mdf_path}" -NewName "AxDB_original.mdf"
-Rename-Item -Path "${physical_ldf_path}" -NewName "AxDB_original.ldf"
+Rename-Item -Path "$physical_mdf_path" -NewName "AxDB_original.mdf"
+Rename-Item -Path "$physical_ldf_path" -NewName "AxDB_original.ldf"
 
 # Change path of the logical names
 Invoke-SqlCmd -Query "alter database AxDB_original modify file (name = ${logical_mdf_name}, filename = '${$pyshical_mdf_path}\AxDB_original.mdf')" -Verbose
@@ -66,8 +66,8 @@ Invoke-SqlCmd -Query "ALTER DATABASE AxDB SET OFFLINE"
 Invoke-SqlCmd -Query "GO"
 
 # RENAME PHYSICAL FILES
-Rename-Item -Path "${physical_mdf_path}" -NewName "AxDB.mdf"
-Rename-Item -Path "${physical_ldf_path}" -NewName "AxDB.ldf"
+Rename-Item -Path "$physical_mdf_path" -NewName "AxDB.mdf"
+Rename-Item -Path "$physical_ldf_path" -NewName "AxDB.ldf"
 
 # Change path of the logical names
 Invoke-SqlCmd -Query "alter database AxDB modify file (name = ${logical_mdf_name}, filename = '${$pyshical_mdf_path}\AxDB.mdf')" -Verbose
