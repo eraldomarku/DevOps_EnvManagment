@@ -72,9 +72,6 @@ variables:
 # Script that rename mdf and ldf as the name of the database
 - name: script_rename_mdf_ldf
   value: 'db_env_managment_scripts/rename_mdf_ldf.ps1'
-
-
-
 #################################################################################################################################################
 
 stages:
@@ -117,7 +114,7 @@ stages:
         arguments: '${{variables.extract_db_path}} ${{variables.db_name}}'
         filePath: ${{variables.script_export_db}}
 
-# Third stage extract .bacpac db from VmA and upload it to blob azure storage    
+# VmA upload bacpac to blob azure storage    
 - stage: VmA_upload_db_to_Azure_blob
   jobs:
   - job: upload_db
