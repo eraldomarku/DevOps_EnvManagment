@@ -46,9 +46,6 @@ variables:
   value: 360
 # ------------------------------------------------------------------------------------------------------------------------------------------
 # SCIRPTS VARIABLES
-# Script that sets environments 
-- name: script_set_environments
-  value: 'db_env_managment_scripts/set_environments.ps1'
 
 # Script that exports db .bacpac from VmA db
 - name: script_export_db
@@ -76,30 +73,6 @@ variables:
 #################################################################################################################################################
 
 stages:
-# First stage checks if NuGet, df365.tools are installed and the needed packages as d365sqlpackage and d365AzCopy 
-- stage: Set_environments
-  jobs:
-  - job: set_VmA
-    timeoutInMinutes: ${{variables.jobs_timeout}}
-    pool:
-      name: ${{variables.pool}}
-      demands:
-        - agent.name -equals ${{variables.agent_A}}
-    steps:
-    - task: PowerShell@2
-      inputs:
-        filePath: ${{variables.script_set_environments}}
-  - job: set_VmB
-    timeoutInMinutes: ${{variables.jobs_timeout}}
-    pool:
-      name: ${{variables.pool}}
-      demands:
-        - agent.name -equals ${{variables.agent_B}} 
-    steps:
-    - task: PowerShell@2
-      inputs:
-        filePath: ${{variables.script_set_environments}}
-
 # Second stage extract .bacpac db from VmA    
 - stage: VmA_export_db
   jobs:
