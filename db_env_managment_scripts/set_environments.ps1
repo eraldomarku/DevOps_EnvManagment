@@ -28,7 +28,6 @@ Invoke-D365InstallAzCopy
 
 #Delete directory and start_agent.ps1 if it exist else create the directory
 if(Test-Path $startup_scripts_path){
-    Remove-Item $startup_scripts_path
     if(Test-Path "${startup_scripts_path}\start_agent.ps1"){
         Remove-Item "${startup_scripts_path}\start_agent.ps1"
     }
