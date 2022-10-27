@@ -157,10 +157,12 @@ stages:
         - agent.name -equals ${{variables.agent_B}}
     steps:
     - task: PowerShell@2
+      displayName: stop_d365fo_environment
       inputs:
         arguments: 'stop'
         filePath: ${{variables.script_start_stop_d365fo}}
     - task: PowerShell@2
+      displayName: import_db_bacpac
       inputs:
         arguments: '${{variables.download_db_path}} ${{variables.db_name}} ${{variables.sql_db_name}} ${{variables.MSSQL_DATA_path}}'
         filePath: ${{variables.script_import_db}}
@@ -176,14 +178,22 @@ stages:
         - agent.name -equals ${{variables.agent_B}}
     steps:
     - task: PowerShell@2
+      displayName: stop_d365fo_environment
+      inputs:
+        arguments: 'stop'
+        filePath: '${{variables.script_start_stop_d365fo}}'
+    - task: PowerShell@2
+      displayName: rename_${{variables.db_d365fo_name}}_mdf_ldf
       inputs:
         arguments: '${{variables.db_backup_d365fo_name}}'
         filePath: '${{variables.script_rename_mdf_ldf}}'
     - task: PowerShell@2
+      displayName: rename_${{variables.db_backup_d365fo_name}}_mdf_ldf
       inputs:
         arguments: '${{variables.db_d365fo_name}}'
         filePath: '${{variables.script_rename_mdf_ldf}}'
     - task: PowerShell@2
+      displayName: start_d365fo_environment
       inputs:
         arguments: 'start'
         filePath: '${{variables.script_start_stop_d365fo}}'
