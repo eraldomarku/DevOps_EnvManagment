@@ -15,7 +15,8 @@ else
 {
     New-Item $db_path -itemType Directory
 }
-#Export AxDB from sql to bacpac in path directory
+#We need to stop all D365FO related services, to ensure that our database isn't being updated while we are exporting it. Type the following command:
 Stop-D365Environment -All
+#Export AxDB from sql to bacpac in path directory
 New-D365Bacpac -ExportModeTier1 -ShowOriginalProgress -BacpacFile "${db_path}${db_name}"
 Start-D365Environment -All
