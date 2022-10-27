@@ -46,7 +46,6 @@ Set-Content "$startup_scripts_path\start_agent.ps1" "powershell -Command `"Start
 
 # Set start_agent.ps1 to autorun on vm startup modifying group policies
 Set-Content $policy_script_path " "
-Add-Content $policy_script_path " "
 Add-Content $policy_script_path "[Startup]"
 Add-Content $policy_script_path "0CmdLine=$powershell_path"
-Add-Content $policy_script_path "0Parameters=-file ${startup_scripts_path}\start_agent.ps1"
+Add-Content $policy_script_path "0Parameters=-file `"${startup_scripts_path}\start_agent.ps1`""
