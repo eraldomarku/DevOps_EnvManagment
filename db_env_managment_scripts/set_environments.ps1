@@ -12,8 +12,8 @@ $powershell_path=$args[3]
 # DF365.TOOLS FRESH INSTALL
 
 # Check if d365fo.tools is installed to eventually delete it and do a fresh install with the packages
-if (Get-Module -ListAvailable -Name d365fo.tools) {
-    Remove-Module -Name d365fo.tools
+if (Get-Module -ListAvailable -Name "d365fo.tools") {
+    Remove-Module -Name "d365fo.tools"
 } 
 else {
     Import-Module -Name PowerShellGet -Force
