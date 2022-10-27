@@ -9,15 +9,15 @@ variables:
 ####################################################################################################################################################
 # GLOBAL VARIABLES
 
-# Path where db .bacpac will be extracted from VmA 
+# Path where db .bacpac will be extracted from VmA. FORMAT->"X:/folder_path/"
 - name: extract_db_path
   value: "C:/Bacpacs/" 
 
-# Path where db .bacpac will be  downloaded from VmB
+# Path where db .bacpac will be  downloaded from VmB FORMAT->"X:/folder_path/"
 - name: download_db_path
   value: "C:/downloadedBacpacs/"
 
-# Name of the file with extension type that will be extracted, uploaded and downloaded
+# Name of the file with extension type that will be extracted, uploaded and downloaded FORMAT->"name_file.bacpac"
 - name: db_name
   value: "db_dev_1.bacpac"
 
@@ -25,7 +25,7 @@ variables:
 - name: blob_url
   value: 'https://apsiaem01ada09a20ec1a713.blob.core.windows.net/retail-cdx-down-68719476736?sp=racwdli&st=2022-10-19T10:51:08Z&se=2023-02-02T19:51:08Z&spr=https&sv=2021-06-08&sr=c&sig=kiGgyozma%2FZWom%2BtWz%2F7ynf8rEoXCn3XP5DjigiS65Q%3D'
 
-# Name of the new db that will be created on Vm_B to import the .bacpac
+# Name of the new db that will be created on Vm_B to import the .bacpac FORMAT->"name_file.bacpac"
 - name: sql_db_name
   value: "AxDB_updated"
 
@@ -66,7 +66,7 @@ variables:
 - name: script_import_db
   value: 'db_env_managment_scripts/import_db.ps1'
 
-# Script that start and stop d365fo environment
+# Script that start and stop d365fo environment arguments-> [start] | [stop]
 - name: script_start_stop_d365fo
   value: 'db_env_managment_scripts/start_stop_d365fo_env.ps1'
 
