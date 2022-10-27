@@ -12,18 +12,16 @@ $powershell_path=$args[3]
 # DF365.TOOLS FRESH INSTALL
 
 # Check if d365fo.tools is installed to eventually delete it and do a fresh install with the packages
-if (Get-Module -ListAvailable -Name "d365fo.tools") {
-    Remove-Module -Name "d365fo.tools"
+if (Get-Module -ListAvailable -Name d365fo.tools) {
+    Uninstall-Module d365fo.tools -Force -Verbose
 } 
-else {
-    Import-Module -Name PowerShellGet -Force
-    Import-Module -Name PackageManagement -Force
-    Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.208 -Force
-    Install-Module -Name d365fo.tools -Force
-    Invoke-D365InstallSqlPackage 
-    Set-ExecutionPolicy Unrestricted
-    Invoke-D365InstallAzCopy
-}
+Import-Module -Name PowerShellGet -Force
+Import-Module -Name PackageManagement -Force
+Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.208 -Force
+Install-Module -Name d365fo.tools -Force
+Invoke-D365InstallSqlPackage 
+Set-ExecutionPolicy Unrestricted
+Invoke-D365InstallAzCopy
 
 ##########################################################################################################
 # CREATE THE SCRIPT THAT RUNS THE ANGENT IN ADMIN PRIBVILEGIES
