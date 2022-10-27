@@ -177,11 +177,11 @@ stages:
     steps:
     - task: PowerShell@2
       inputs:
-        arguments: '${{variables.db_d365fo_name}}'
+        arguments: '${{variables.db_backup_d365fo_name}}'
         filePath: '${{variables.script_rename_mdf_ldf}}'
     - task: PowerShell@2
       inputs:
-        arguments: '${{variables.db_backup_d365fo_name}}'
+        arguments: '${{variables.db_d365fo_name}}'
         filePath: '${{variables.script_rename_mdf_ldf}}'
     - task: PowerShell@2
       inputs:
