@@ -217,9 +217,9 @@ stages:
         filePath: '${{variables.script_start_stop_d365fo}}'
 
 # Stage that stops VmB from VmA
-- stage: start_VmB
+- stage: stop_VmB
   jobs:
-  - job: start_VmB
+  - job: stop_VmB
     timeoutInMinutes: ${{variables.jobs_timeout}}
     pool:
       name: ${{variables.pool}}
