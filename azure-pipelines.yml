@@ -66,11 +66,11 @@ variables:
 
 # project id where the cloud hosted environment VmB is hosted in lcs
 - name: project_id
-  value: "1771406"
+  value: "1626501"
 
 # environment id of VmB that can be found in lcs
 - name: environment_id
-  value: "56af8e8e-3c8a-4066-84ec-ed721011a811"
+  value: "22fc1e91-0d01-4c77-85ce-76ee8e6bcde9"
 
 # ------------------------------------------------------------------------------------------------------------------------------------------
 # SCIRPTS VARIABLES
@@ -148,7 +148,7 @@ stages:
     steps:
     - task: PowerShell@2
       inputs:
-        arguments: -command "start" -client_id ${{variables.azure_app_id}} -client_secret ${{variables.azure_app_secret}} -username ${{variables.username}} -password ${{variables.password}} -ProjectId ${{variables.project_id}} -EnvironmentId ${{variables.environment_id}}
+        arguments: -command "stop" -client_id ${{variables.azure_app_id}} -client_secret ${{variables.azure_app_secret}} -username ${{variables.username}} -password ${{variables.password}} -ProjectId ${{variables.project_id}} -EnvironmentId ${{variables.environment_id}}
         filePath: ${{variables.script_start_stop_vm}}
 
 
