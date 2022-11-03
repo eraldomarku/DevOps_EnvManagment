@@ -4,11 +4,11 @@ param ($command, $client_id, $client_secret, $username, $password, $ProjectId, $
 $url="https://login.microsoftonline.com/common/oauth2/token"
 
 $body = @{
-    grant_type='password',
-    client_id=$client_id,
-    client_secret=$client_secret,
-    resource='https://lcsapi.lcs.dynamics.com',
-    username=$username,
+    grant_type='password'
+    client_id=$client_id
+    client_secret=$client_secret
+    resource='https://lcsapi.lcs.dynamics.com'
+    username=$username
     password=$password
 }
 
