@@ -44,6 +44,34 @@ variables:
 # Timeout after which the pipeline will be interrupted
 - name: jobs_timeout
   value: 360
+
+# ------------------------------------------------------------------------------------------------------------------------------------------
+# START STOP VM VARIABLES
+
+# client id of the app created in azure apps that allows connection with dynamics lifecycle services
+- name: azure_app_id
+  value: "f0ddf0ac-290a-4d47-b306-bf940be784fd"
+
+# secret of the app created in azure apps that allows connection with dynamics lifecycle services
+- name: azure_app_secret
+  value: "M6Y8Q~b69gKxhSFIbdDmqU6VN4VscLfXvDrl6bLE"
+
+# username of a user of the tenant like user@tenant.eu
+- name: username
+  value: "eraldo.marku@apsia.eu"
+
+# password of a user of the tenant like user@tenant.eu
+- name: password
+  value: "Das30677"
+
+# project id where the cloud hosted environment VmB is hosted in lcs
+- name: project_id
+  value: "1771406"
+
+# environment id of VmB that can be found in lcs
+- name: environment_id
+  value: "56af8e8e-3c8a-4066-84ec-ed721011a811"
+
 # ------------------------------------------------------------------------------------------------------------------------------------------
 # SCIRPTS VARIABLES
 
@@ -102,6 +130,23 @@ stages:
       inputs:
         arguments: "${{variables.extract_db_path}} ${{variables.db_name}} '${{variables.blob_url}}'" #as blob is a url is passed with ' ' because contains special charcater &
         filePath: ${{variables.script_upload_db}}
+
+
+# Stage that starts VmB from VmA
+- stage: start_VmB
+  jobs:
+  - job: start_VmB
+    timeoutInMinutes: ${{variables.jobs_timeout}}
+    pool:
+      name: ${{variables.pool}}
+      demands:
+        - agent.name -equals ${{variables.agent_A}}
+    steps:
+    - task: PowerShell@2
+      inputs:
+        arguments: -command "start" -client_id ${{variables.azure_app_id}} -client_secret ${{variables.azure_app_secret}} -username ${{variables.username}} -password ${{variables.password}} -ProjectId ${{variables.project_id}} -EnvironmentId ${{variables.environment_id}}
+        filePath: ${{variables.script_start_stop_vm}}
+
 
 # Fourth stage VmB download .bacpac db from azure storage blob
 - stage: VmB_download_db_from_Azure_blob
@@ -170,6 +215,21 @@ stages:
       inputs:
         arguments: 'start'
         filePath: '${{variables.script_start_stop_d365fo}}'
+
+# Stage that stops VmB from VmA
+- stage: start_VmB
+  jobs:
+  - job: start_VmB
+    timeoutInMinutes: ${{variables.jobs_timeout}}
+    pool:
+      name: ${{variables.pool}}
+      demands:
+        - agent.name -equals ${{variables.agent_A}}
+    steps:
+    - task: PowerShell@2
+      inputs:
+        arguments: -command "stop" -client_id ${{variables.azure_app_id}} -client_secret ${{variables.azure_app_secret}} -username ${{variables.username}} -password ${{variables.password}} -ProjectId ${{variables.project_id}} -EnvironmentId ${{variables.environment_id}}
+        filePath: ${{variables.script_start_stop_vm}}
     
 
 
