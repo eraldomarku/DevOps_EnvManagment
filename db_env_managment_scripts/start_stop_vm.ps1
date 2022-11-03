@@ -5,10 +5,10 @@ $url="https://login.microsoftonline.com/common/oauth2/token"
 
 $body = @{
     grant_type='password',
-    client_id=$client_id
-    client_secret=$client_secret
-    resource='https://lcsapi.lcs.dynamics.com'
-    username=$username
+    client_id=$client_id,
+    client_secret=$client_secret,
+    resource='https://lcsapi.lcs.dynamics.com',
+    username=$username,
     password=$password
 }
 
