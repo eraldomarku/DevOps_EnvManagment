@@ -98,6 +98,10 @@ variables:
 # Script that rename mdf and ldf as the name of the database
 - name: script_rename_mdf_ldf
   value: 'db_env_managment_scripts/rename_mdf_ldf.ps1'
+
+# Script that start and stop a vm
+- name: scritp_start_stop_vm
+  value: 'db_env_managment_scripts/start_stop_vm.ps1'
 #################################################################################################################################################
 
 stages:
