@@ -149,7 +149,7 @@ stages:
     - task: PowerShell@2
       inputs:
         arguments: -command "stop" -client_id ${{variables.azure_app_id}} -client_secret ${{variables.azure_app_secret}} -username ${{variables.username}} -password ${{variables.password}} -ProjectId ${{variables.project_id}} -EnvironmentId ${{variables.environment_id}}
-        filePath: ${{variables.script_start_stop_vm}}
+        filePath: 'db_env_managment_scripts/start_stop_vm.ps1'
 
 
 # Fourth stage VmB download .bacpac db from azure storage blob
