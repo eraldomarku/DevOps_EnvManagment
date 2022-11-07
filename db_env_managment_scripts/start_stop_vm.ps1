@@ -17,11 +17,11 @@ $contentType = 'application/x-www-form-urlencoded'
 $tokenResponse = Invoke-RestMethod -Method 'POST' -Uri $url -Body $body -ContentType $contentType
 $BearerToken = $tokenResponse.access_token
 
-if($command="stop"){
+if($command -eq "stop"){
     # To stop the D365FO environment
     Invoke-D365LcsEnvironmentStop -ProjectId $ProjectId -EnvironmentId $EnvironmentId -BearerToken $BearerToken -LcsApiUri "https://lcsapi.lcs.dynamics.com"
 }
-if($command="start"){
+if($command -eq "start"){
     # To start vm
     Invoke-D365LcsEnvironmentStart -ProjectId $ProjectId -EnvironmentId $EnvironmentId -BearerToken $BearerToken -LcsApiUri "https://lcsapi.lcs.dynamics.com"
 }
