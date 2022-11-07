@@ -1,8 +1,11 @@
 ###################################################################################################################################################
 # SCHEDULE EXECUTION
 schedules:
-- cron: "25 9 * * *"
-  displayName: Run At 00:00 on day-of-month 1
+- cron: "29 9 * * *"
+  displayName: Run At 
+  branches:
+    include:
+    - main
 #To run on a schedule PR and CI triggers must be disabled.
 pr: none
 trigger: none
