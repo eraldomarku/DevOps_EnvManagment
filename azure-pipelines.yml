@@ -79,11 +79,11 @@ variables:
 
 # project id where the cloud hosted environment VmB is hosted in lcs
 - name: project_id
-  value: "1626501"
+  value: "1771406"
 
 # environment id of VmB that can be found in lcs
 - name: environment_id
-  value: "22fc1e91-0d01-4c77-85ce-76ee8e6bcde9"
+  value: "56af8e8e-3c8a-4066-84ec-ed721011a811"
 
 # ------------------------------------------------------------------------------------------------------------------------------------------
 # SCIRPTS VARIABLES
