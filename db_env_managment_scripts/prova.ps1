@@ -1,1 +1,4 @@
-start "C:\Program Files\Google\Chrome\Application\chrome.exe"
+
+
+npx playwright codegen demo.playwright.dev/todomvc
+
