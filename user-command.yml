@@ -11,9 +11,6 @@ variables:
 - name: pool
   value: "Users"
 
-# Script
-- name: script_record
-  value: ''
 
 # ---------------------------------------------------------------------
 
@@ -30,5 +27,4 @@ stages:
     steps:
     - task: PowerShell@2
       inputs:
-        arguments: ''
-        filePath: ''
+        filePath: 'db_env_managment_scripts/prova.ps1'
