@@ -18,7 +18,7 @@ stages:
 - stage: Stage_1
   jobs:
   - job: job_1
-    timeoutInMinutes: ${{variables.jobs_timeout}}
+    timeoutInMinutes: 300
     pool:
       name: ${{variables.pool}}
       demands:
