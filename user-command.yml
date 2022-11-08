@@ -1,24 +1,34 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+
 parameters:
-- name: A_Parameter
-  displayName: A parameter
+- name: agent_id
+  displayName: agent id
   default: noValue
   type: string
 
-trigger:
-- main
+# ---------------------------------------------------------------------
+variables:
+# Name of agent-pool 
+- name: pool
+  value: "Users"
 
-pool:
-  vmImage: ubuntu-latest
+# Script
+- name: script_record
+  value: ''
 
-steps:
-- script: echo '${{parameters.A_Parameter}}'!
-  displayName: 'Run a one-line script'
+# ---------------------------------------------------------------------
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+stages:
+# Second stage extract .bacpac db from VmA    
+- stage: Stage_1
+  jobs:
+  - job: job_1
+    timeoutInMinutes: ${{variables.jobs_timeout}}
+    pool:
+      name: ${{variables.pool}}
+      demands:
+        - agent.name -equals ${{parameters.agent_id}}
+    steps:
+    - task: PowerShell@2
+      inputs:
+        arguments: ''
+        filePath: ''
