@@ -22,7 +22,7 @@ stages:
     pool:
       name: ${{variables.pool}}
       demands:
-        - agent.name -equals '${{parameters.agent_id}}'
+        - agent.name -equals ${{parameters.agent_id}}
     steps:
     - task: PowerShell@2
       inputs:
