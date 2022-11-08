@@ -12,7 +12,7 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo {{variables.var}}!
+- script: echo ${{variables.var}}!
   displayName: 'Run a one-line script'
 
 - script: |
