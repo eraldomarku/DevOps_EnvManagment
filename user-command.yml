@@ -2,6 +2,11 @@
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
+parameters:
+- name: A_Parameter
+  displayName: A parameter
+  default: noValue
+  type: string
 
 trigger:
 - main
@@ -10,7 +15,7 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo ${{variables.var}}!
+- script: echo '${{parameters.A_Parameter}}'!
   displayName: 'Run a one-line script'
 
 - script: |
