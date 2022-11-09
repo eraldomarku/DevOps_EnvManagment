@@ -14,7 +14,7 @@ variables:
 # ---------------------------------------------------------------------
 
 stages:
-# Second stage extract .bacpac db from VmA    
+# Se  
 - stage: Stage_1
   jobs:
   - job: job_1
