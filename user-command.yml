@@ -15,7 +15,7 @@ variables:
 
 stages:
 # Se  
-- stage: Stage_1
+- stage: Stage_${{parameters.agent_id}}
   jobs:
   - job: job_1
     timeoutInMinutes: 300
