@@ -1,0 +1,4 @@
+variables:
+# Name of agent-pool 
+- name: pool
+  value: "Users"
