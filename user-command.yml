@@ -7,7 +7,7 @@ parameters:
 
 # ---------------------------------------------------------------------
 variables:
-   - template: variable-template.yml
+   - template: variables-template.yml
 
 # ---------------------------------------------------------------------
 
