@@ -21,7 +21,7 @@ stages:
 - stage: VmA_export_db
   jobs:
   - job: export_db
-    timeoutInMinutes: ${{variables.jobs_timeout}}
+    timeoutInMinutes: $(jobs_timeout)
     pool:
       name: ${{variables.pool}}
       demands:
