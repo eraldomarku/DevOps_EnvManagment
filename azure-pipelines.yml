@@ -36,7 +36,7 @@ stages:
 - stage: VmA_upload_db_to_Azure_blob
   jobs:
   - job: upload_db
-    timeoutInMinutes: $(jobs_timeout)
+    timeoutInMinutes: $[variables['jobs_timeout']]
     pool:
       name: $(pool)
       demands:
@@ -52,7 +52,7 @@ stages:
 - stage: start_VmB
   jobs:
   - job: start_VmB
-    timeoutInMinutes: $(jobs_timeout)
+    timeoutInMinutes: $[variables['jobs_timeout']]
     pool:
       name: $(pool)
       demands:
@@ -68,7 +68,7 @@ stages:
 - stage: VmB_download_db_from_Azure_blob
   jobs:
   - job: download_db
-    timeoutInMinutes: $(jobs_timeout)
+    timeoutInMinutes: $[variables['jobs_timeout']]
     pool:
       name: $(pool)
       demands:
@@ -84,7 +84,7 @@ stages:
 - stage: VmB_import_db
   jobs:
   - job: import_db
-    timeoutInMinutes: $(jobs_timeout)
+    timeoutInMinutes: $[variables['jobs_timeout']]
     pool:
       name: $(pool)
       demands:
@@ -105,7 +105,7 @@ stages:
 - stage: VmB_rename_mdf_ldf
   jobs:
   - job: rename_mdf_ldf
-    timeoutInMinutes: $(jobs_timeout)
+    timeoutInMinutes: $[variables['jobs_timeout']]
     pool:
       name: $(pool)
       demands:
@@ -136,7 +136,7 @@ stages:
 - stage: stop_VmB
   jobs:
   - job: stop_VmB
-    timeoutInMinutes: $(jobs_timeout)
+    timeoutInMinutes: $[variables['jobs_timeout']]
     pool:
       name: $(pool)
       demands:
