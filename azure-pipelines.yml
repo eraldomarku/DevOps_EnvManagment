@@ -36,7 +36,7 @@ stages:
 - stage: VmA_upload_db_to_Azure_blob
   jobs:
   - job: upload_db
-    timeoutInMinutes: $(variables.jobs_timeout)
+    timeoutInMinutes: $(jobs_timeout)
     pool:
       name: $(pool)
       demands:
@@ -44,23 +44,23 @@ stages:
     steps:
     - task: PowerShell@2
       inputs:
-        arguments: "${{variables.extract_db_path}} ${{variables.db_name}} '${{variables.blob_url}}'" #as blob is a url is passed with ' ' because contains special charcater &
-        filePath: ${{variables.script_upload_db}}
+        arguments: "$(extract_db_path) $(db_name) '$(blob_url)'" #as blob is a url is passed with ' ' because contains special charcater &
+        filePath: $(script_upload_db)
 
 
 # Stage that starts VmB from VmA
 - stage: start_VmB
   jobs:
   - job: start_VmB
-    timeoutInMinutes: ${{variables.jobs_timeout}}
+    timeoutInMinutes: $(jobs_timeout)
     pool:
-      name: ${{variables.pool}}
+      name: $(pool)
       demands:
-        - agent.name -equals ${{variables.agent_a}}
+        - agent.name -equals $(agent_a)
     steps:
     - task: PowerShell@2
       inputs:
-        arguments: -command "start" -client_id ${{variables.azure_app_id}} -client_secret ${{variables.azure_app_secret}} -username ${{variables.username}} -password ${{variables.password}} -ProjectId ${{variables.project_id}} -EnvironmentId ${{variables.environment_id}}
+        arguments: -command "start" -client_id $(azure_app_id) -client_secret $(azure_app_secret) -username $(username) -password $(password) -ProjectId $(project_id) -EnvironmentId $(environment_id)
         filePath: 'db_env_managment_scripts/start_stop_vm.ps1'
 
 
@@ -68,83 +68,83 @@ stages:
 - stage: VmB_download_db_from_Azure_blob
   jobs:
   - job: download_db
-    timeoutInMinutes: ${{variables.jobs_timeout}}
+    timeoutInMinutes: $(jobs_timeout)
     pool:
-      name: ${{variables.pool}}
+      name: $(pool)
       demands:
-        - agent.name -equals ${{variables.agent_b}}
+        - agent.name -equals $(agent_b)
     steps:
     - task: PowerShell@2
       inputs:
-        arguments: "${{variables.download_db_path}} ${{variables.db_name}} '${{variables.blob_url}}'"
-        filePath: ${{variables.script_download_db}}
+        arguments: "$(download_db_path) $(db_name) '$(blob_url)'"
+        filePath: $(script_download_db)
 
 
 # Fifth VmB import downloaded bacpac from blob azure
 - stage: VmB_import_db
   jobs:
   - job: import_db
-    timeoutInMinutes: ${{variables.jobs_timeout}}
+    timeoutInMinutes: $(jobs_timeout)
     pool:
-      name: ${{variables.pool}}
+      name: $(pool)
       demands:
-        - agent.name -equals ${{variables.agent_b}}
+        - agent.name -equals $(agent_b)
     steps:
     - task: PowerShell@2
       displayName: stop_d365fo_environment
       inputs:
         arguments: 'stop'
-        filePath: ${{variables.script_start_stop_d365fo}}
+        filePath: $(script_start_stop_d365fo)
     - task: PowerShell@2
       displayName: import_db_bacpac
       inputs:
-        arguments: '${{variables.download_db_path}} ${{variables.db_name}} ${{variables.sql_db_name}} ${{variables.MSSQL_DATA_path}}'
-        filePath: ${{variables.script_import_db}}
+        arguments: '$(download_db_path) $(db_name) $(sql_db_name) $(MSSQL_DATA_path)'
+        filePath: $(script_import_db)
 
 # Sixth stage renames mdf and ldf of created AxDB and AxDB_original as their names
 - stage: VmB_rename_mdf_ldf
   jobs:
   - job: rename_mdf_ldf
-    timeoutInMinutes: ${{variables.jobs_timeout}}
+    timeoutInMinutes: $(jobs_timeout)
     pool:
-      name: ${{variables.pool}}
+      name: $(pool)
       demands:
-        - agent.name -equals ${{variables.agent_b}}
+        - agent.name -equals $(agent_b)
     steps:
     - task: PowerShell@2
       displayName: stop_d365fo_environment
       inputs:
         arguments: 'stop'
-        filePath: '${{variables.script_start_stop_d365fo}}'
+        filePath: '$(script_start_stop_d365fo)'
     - task: PowerShell@2
-      displayName: rename_${{variables.db_d365fo_name}}_mdf_ldf
+      displayName: rename_$(db_d365fo_name)_mdf_ldf
       inputs:
-        arguments: '${{variables.db_backup_d365fo_name}}'
-        filePath: '${{variables.script_rename_mdf_ldf}}'
+        arguments: '$(db_backup_d365fo_name)'
+        filePath: '$(script_rename_mdf_ldf)'
     - task: PowerShell@2
-      displayName: rename_${{variables.db_backup_d365fo_name}}_mdf_ldf
+      displayName: rename_$(db_backup_d365fo_name)_mdf_ldf
       inputs:
-        arguments: '${{variables.db_d365fo_name}}'
-        filePath: '${{variables.script_rename_mdf_ldf}}'
+        arguments: '$(db_d365fo_name)'
+        filePath: '$(script_rename_mdf_ldf)'
     - task: PowerShell@2
       displayName: start_d365fo_environment
       inputs:
         arguments: 'start'
-        filePath: '${{variables.script_start_stop_d365fo}}'
+        filePath: '$(script_start_stop_d365fo)'
 
 # Stage that stops VmB from VmA
 - stage: stop_VmB
   jobs:
   - job: stop_VmB
-    timeoutInMinutes: ${{variables.jobs_timeout}}
+    timeoutInMinutes: $(jobs_timeout)
     pool:
-      name: ${{variables.pool}}
+      name: $(pool)
       demands:
-        - agent.name -equals ${{variables.agent_a}}
+        - agent.name -equals $(agent_a)
     steps:
     - task: PowerShell@2
       inputs:
-        arguments: -command "stop" -client_id ${{variables.azure_app_id}} -client_secret ${{variables.azure_app_secret}} -username ${{variables.username}} -password ${{variables.password}} -ProjectId ${{variables.project_id}} -EnvironmentId ${{variables.environment_id}}
+        arguments: -command "stop" -client_id $(azure_app_id) -client_secret $(azure_app_secret) -username $(username) -password $(password) -ProjectId $(project_id) -EnvironmentId $(environment_id)
         filePath: 'db_env_managment_scripts/start_stop_vm.ps1'
     
 
