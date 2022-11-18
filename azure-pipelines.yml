@@ -23,24 +23,24 @@ stages:
   - job: export_db
     timeoutInMinutes: $(jobs_timeout)
     pool:
-      name: ${{variables.pool}}
+      name: $(pool)
       demands:
-        - agent.name -equals ${{variables.agent_a}}
+        - agent.name -equals $(agent_a)
     steps:
     - task: PowerShell@2
       inputs:
-        arguments: '${{variables.extract_db_path}} ${{variables.db_name}}'
-        filePath: ${{variables.script_export_db}}
+        arguments: '$(extract_db_path) $(db_name)'
+        filePath: $(script_export_db)
 
 # VmA upload bacpac to blob azure storage    
 - stage: VmA_upload_db_to_Azure_blob
   jobs:
   - job: upload_db
-    timeoutInMinutes: ${{variables.jobs_timeout}}
+    timeoutInMinutes: $(variables.jobs_timeout)
     pool:
-      name: ${{variables.pool}}
+      name: $(pool)
       demands:
-        - agent.name -equals ${{variables.agent_a}}
+        - agent.name -equals $(agent_a)
     steps:
     - task: PowerShell@2
       inputs:
