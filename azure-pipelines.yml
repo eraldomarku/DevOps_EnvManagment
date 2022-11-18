@@ -98,7 +98,7 @@ stages:
     - task: PowerShell@2
       displayName: import_db_bacpac
       inputs:
-        arguments: '$(download_db_path) $(db_name) $(sql_db_name) $(MSSQL_DATA_path)'
+        arguments: '$(download_db_path) $(db_name) $(sql_db_name)'
         filePath: $(script_import_db)
 
 # Sixth stage renames mdf and ldf of created AxDB and AxDB_original as their names
