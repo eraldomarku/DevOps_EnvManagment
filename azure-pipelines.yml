@@ -12,109 +12,7 @@ trigger: none
 ###################################################################################################################################################
 
 variables:
-###################################################################################################################################################
-# This variables should not be touched because after the import of db in VmB we will have two databases with those names as setted
-- name: db_d365fo_name
-  value: "AxDB"
-
-- name: db_backup_d365fo_name
-  value: "AxDB_original"
-####################################################################################################################################################
-# GLOBAL VARIABLES
-
-# Path where db .bacpac will be extracted from VmA. FORMAT->"X:/folder_path/"
-- name: extract_db_path
-  value: "C:/Bacpacs/" 
-
-# Path where db .bacpac will be  downloaded from VmB FORMAT->"X:/folder_path/"
-- name: download_db_path
-  value: "C:/downloadedBacpacs/"
-
-# Name of the file with extension type that will be extracted, uploaded and downloaded FORMAT->"name_file.bacpac"
-- name: db_name
-  value: "db_dev_1.bacpac"
-
-# Uri of Azure storage blob where the file will be uploaded and downlaoded 
-- name: blob_url
-  value: 'https://apsiaem01ada09a20ec1a713.blob.core.windows.net/retail-cdx-down-68719476736?sp=racwdli&st=2022-10-19T10:51:08Z&se=2023-02-02T19:51:08Z&spr=https&sv=2021-06-08&sr=c&sig=kiGgyozma%2FZWom%2BtWz%2F7ynf8rEoXCn3XP5DjigiS65Q%3D'
-
-# Name of the new db that will be created on Vm_B to import the .bacpac FORMAT->"name_file.bacpac"
-- name: sql_db_name
-  value: "AxDB_updated"
-
-# Name of agent-pool 
-- name: pool
-  value: "Nodepool"
-
-# Name of agent installed on VmA
-- name: agent_A
-  value: "uat_simulation_agent"
-
-# Name of agent installed on VmB
-- name: agent_B
-  value: "tier1_agent"
-
-# Timeout after which the pipeline will be interrupted
-- name: jobs_timeout
-  value: 360
-
-# ------------------------------------------------------------------------------------------------------------------------------------------
-# START STOP VM VARIABLES
-
-# client id of the app created in azure apps that allows connection with dynamics lifecycle services
-- name: azure_app_id
-  value: "f0ddf0ac-290a-4d47-b306-bf940be784fd"
-
-# secret of the app created in azure apps that allows connection with dynamics lifecycle services
-- name: azure_app_secret
-  value: "M6Y8Q~b69gKxhSFIbdDmqU6VN4VscLfXvDrl6bLE"
-
-# username of a user of the tenant like user@tenant.eu
-- name: username
-  value: "eraldo.marku@apsia.eu"
-
-# password of a user of the tenant like user@tenant.eu
-- name: password
-  value: "Das30677"
-
-# project id where the cloud hosted environment VmB is hosted in lcs
-- name: project_id
-  value: "1771406"
-
-# environment id of VmB that can be found in lcs
-- name: environment_id
-  value: "56af8e8e-3c8a-4066-84ec-ed721011a811"
-
-# ------------------------------------------------------------------------------------------------------------------------------------------
-# SCIRPTS VARIABLES
-
-# Script that exports db .bacpac from VmA db
-- name: script_export_db
-  value: 'db_env_managment_scripts/export_db.ps1'
-
-# Script that uploads db .bacpac from VmA to Azure storage blob
-- name: script_upload_db
-  value: 'db_env_managment_scripts/upload_db.ps1'
-
-# Script that downloads db .bacpac from Azure storage blob to VmB
-- name: script_download_db
-  value: 'db_env_managment_scripts/download_db.ps1'
-
-# Script that imports db .bacpac into VmB db
-- name: script_import_db
-  value: 'db_env_managment_scripts/import_db.ps1'
-
-# Script that start and stop d365fo environment arguments-> [start] | [stop]
-- name: script_start_stop_d365fo
-  value: 'db_env_managment_scripts/start_stop_d365fo_env.ps1'
-
-# Script that rename mdf and ldf as the name of the database
-- name: script_rename_mdf_ldf
-  value: 'db_env_managment_scripts/rename_mdf_ldf.ps1'
-
-# Script that start and stop a vm
-- name: scritp_start_stop_vm
-  value: 'db_env_managment_scripts/start_stop_vm.ps1'
+- group: Refresh_DB_Variables
 #################################################################################################################################################
 
 stages:
@@ -126,7 +24,7 @@ stages:
     pool:
       name: ${{variables.pool}}
       demands:
-        - agent.name -equals ${{variables.agent_A}}
+        - agent.name -equals ${{variables.agent_a}}
     steps:
     - task: PowerShell@2
       inputs:
@@ -141,7 +39,7 @@ stages:
     pool:
       name: ${{variables.pool}}
       demands:
-        - agent.name -equals ${{variables.agent_A}}
+        - agent.name -equals ${{variables.agent_a}}
     steps:
     - task: PowerShell@2
       inputs:
@@ -157,7 +55,7 @@ stages:
     pool:
       name: ${{variables.pool}}
       demands:
-        - agent.name -equals ${{variables.agent_A}}
+        - agent.name -equals ${{variables.agent_a}}
     steps:
     - task: PowerShell@2
       inputs:
@@ -173,7 +71,7 @@ stages:
     pool:
       name: ${{variables.pool}}
       demands:
-        - agent.name -equals ${{variables.agent_B}}
+        - agent.name -equals ${{variables.agent_b}}
     steps:
     - task: PowerShell@2
       inputs:
@@ -189,7 +87,7 @@ stages:
     pool:
       name: ${{variables.pool}}
       demands:
-        - agent.name -equals ${{variables.agent_B}}
+        - agent.name -equals ${{variables.agent_b}}
     steps:
     - task: PowerShell@2
       displayName: stop_d365fo_environment
@@ -210,7 +108,7 @@ stages:
     pool:
       name: ${{variables.pool}}
       demands:
-        - agent.name -equals ${{variables.agent_B}}
+        - agent.name -equals ${{variables.agent_b}}
     steps:
     - task: PowerShell@2
       displayName: stop_d365fo_environment
@@ -241,7 +139,7 @@ stages:
     pool:
       name: ${{variables.pool}}
       demands:
-        - agent.name -equals ${{variables.agent_A}}
+        - agent.name -equals ${{variables.agent_a}}
     steps:
     - task: PowerShell@2
       inputs:
