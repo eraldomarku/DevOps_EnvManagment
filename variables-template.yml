@@ -1,4 +1,6 @@
 variables:
+- group: Refresh_DB_Variables
+
 # Name of agent-pool 
-- name: pool
-  value: "Users"
+#- name: pool
+#  value: "Users"
