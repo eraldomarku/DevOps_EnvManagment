@@ -11,22 +11,22 @@ stages:
   - job: set_VmA
     timeoutInMinutes: $[variables['jobs_timeout']]
     pool:
-      name: ${{variables.pool}}
+      name: $(pool)
       demands:
-        - agent.name -equals ${{variables.agent_A}}
+        - agent.name -equals $(agent_A)
     steps:
     - task: PowerShell@2
       inputs:
-        arguments: "${{variables.agent_path}} ${{variables.startup_scripts_path}} ${{variables.policy_script_path}} ${{variables.powershell_path}}"
-        filePath: ${{variables.script_set_environments}}
+        arguments: "$(agent_path) $(startup_scripts_path) $(policy_script_path) $(powershell_path)"
+        filePath: $(script_set_environments)
   - job: set_VmB
     timeoutInMinutes: $[variables['jobs_timeout']]
     pool:
-      name: ${{variables.pool}}
+      name: $(pool)
       demands:
-        - agent.name -equals ${{variables.agent_B}}
+        - agent.name -equals $(agent_B)
     steps:
     - task: PowerShell@2
       inputs:
-        arguments: "${{variables.agent_path}} ${{variables.startup_scripts_path}} ${{variables.policy_script_path}} ${{variables.powershell_path}}"
-        filePath: ${{variables.script_set_environments}}
+        arguments: "$(agent_path) $(startup_scripts_path) $(policy_script_path) $(powershell_path)"
+        filePath: $(script_set_environments)
