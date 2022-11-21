@@ -1,37 +1,7 @@
  
 variables:
-# Name of agent-pool 
-- name: pool
-  value: "Nodepool"
-
-# Name of agent installed on VmA
-- name: agent_A
-  value: "uat_simulation_agent"
-
-# Name of agent installed on VmB
-- name: agent_B
-  value: "tier1_agent"
-
-# Timeout after which the pipeline will be interrupted
-- name: jobs_timeout
-  value: 360
-# ------------------------------------------------------
-# SCRIPT
-- name: script_set_environments
-  value: 'db_env_managment_scripts/set_environments.ps1'
-
-- name: agent_path
-  value: 'C:\Agent'
-
-- name: startup_scripts_path
-  value: 'C:\startup_scripts'
-
-- name: policy_script_path
-  value: 'C:\Windows\System32\GroupPolicy\Machine\Scripts\scripts.ini'
-
-- name: powershell_path
-  value: 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe'
-
+  - group: Setup_environments_variables
+  
 #################################################################################################################################################
 
 stages:
@@ -39,7 +9,7 @@ stages:
 - stage: Set_environments
   jobs:
   - job: set_VmA
-    timeoutInMinutes: ${{variables.jobs_timeout}}
+    timeoutInMinutes: $[variables['jobs_timeout']]
     pool:
       name: ${{variables.pool}}
       demands:
@@ -50,7 +20,7 @@ stages:
         arguments: "${{variables.agent_path}} ${{variables.startup_scripts_path}} ${{variables.policy_script_path}} ${{variables.powershell_path}}"
         filePath: ${{variables.script_set_environments}}
   - job: set_VmB
-    timeoutInMinutes: ${{variables.jobs_timeout}}
+    timeoutInMinutes: $[variables['jobs_timeout']]
     pool:
       name: ${{variables.pool}}
       demands:
