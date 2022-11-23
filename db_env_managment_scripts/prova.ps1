@@ -4,7 +4,7 @@ $video_or_screenshot = $args[2]
 $blob_url = $args[3]
 
 
-Import-Module d365fo.tools -Force
+
 
 
 
