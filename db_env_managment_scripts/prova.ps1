@@ -44,7 +44,7 @@ if(!$not_started){
         Start-Sleep -seconds 10
         $wshell = New-Object -ComObject Wscript.Shell 
         $Output = $wshell.Popup("You can start reproducing your issue")
-        $ffmpeg_command = "ffmpeg -f gdigrab -y -framerate 60 -i desktop output.avi"
+        $ffmpeg_command = "ffmpeg -f gdigrab -y -framerate 60 -i desktop ${ffmpeg_output}"
 
         $ffmpeg_job = Start-ThreadJob -Name "video" -ScriptBlock { param (
                 [parameter(Mandatory=$true)][string]$ScriptBlock
@@ -73,4 +73,4 @@ $video_recording_path = $compressed_video
 
 #$blob_url = "https://apsialn010318c6c1d521243.blob.core.windows.net/source?sp=rw&st=2022-11-17T09:52:17Z&se=2022-11-17T17:52:17Z&spr=https&sv=2021-06-08&sr=c&sig=qlg6WXKXfkHvs4sl3FU3P%2FDkghju2GXYTVAyO6Dqp04%3D"
 #Invoke-D365AzCopyTransfer -SourceUri "$reprosteps_path" -DestinationUri "$blob_url" -ShowOriginalProgress -Force
-Invoke-D365AzCopyTransfer -SourceUri "$video_recording_path" -DestinationUri "$blob_url" -ShowOriginalProgress -Force
+Invoke-D365AzCopyTransfer -SourceUri "$ffmpeg_output" -DestinationUri "$blob_url" -ShowOriginalProgress -Force
