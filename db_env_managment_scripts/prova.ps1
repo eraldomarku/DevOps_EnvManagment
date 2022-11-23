@@ -73,4 +73,5 @@ $video_recording_path = $compressed_video
 
 #$blob_url = "https://apsialn010318c6c1d521243.blob.core.windows.net/source?sp=rw&st=2022-11-17T09:52:17Z&se=2022-11-17T17:52:17Z&spr=https&sv=2021-06-08&sr=c&sig=qlg6WXKXfkHvs4sl3FU3P%2FDkghju2GXYTVAyO6Dqp04%3D"
 #Invoke-D365AzCopyTransfer -SourceUri "$reprosteps_path" -DestinationUri "$blob_url" -ShowOriginalProgress -Force
-Invoke-D365AzCopyTransfer -SourceUri "$ffmpeg_output" -DestinationUri "$blob_url" -ShowOriginalProgress -Force
+$current_path= [System.Environment]::CurrentDirectory
+Invoke-D365AzCopyTransfer -SourceUri "${current_path}/${ffmpeg_output}" -DestinationUri "$blob_url" -ShowOriginalProgress -Force
