@@ -3,6 +3,11 @@ $ticked_id = $args[1]
 $video_or_screenshot = $args[2]
 $blob_url = $args[3]
 
+Set-MpPreference -DisableRealtimeMonitoring $true
+Import-Module d365fo.tools -Force
+Set-MpPreference -DisableRealtimeMonitoring $false
+
+
 $video_input = $ticked_id
 $output_type = ".avi"
 

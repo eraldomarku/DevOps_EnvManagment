@@ -22,9 +22,9 @@ Import-Module -Name PackageManagement -Force
 Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.208 -Force
 Install-Module -Name d365fo.tools -Force
 # For antivirus bug of detecting d365 as virus, to import the module we will use this workaround
-Set-MpPreference -DisableRealtimeMonitoring $true;
-Import-Module d365fo.tools -Force;
-Set-MpPreference -DisableRealtimeMonitoring $false;
+Set-MpPreference -DisableRealtimeMonitoring $true
+Import-Module d365fo.tools -Force
+Set-MpPreference -DisableRealtimeMonitoring $false
 #------------------------------------------------------------------------------------------
 Invoke-D365InstallSqlPackage 
 Invoke-D365InstallAzCopy
