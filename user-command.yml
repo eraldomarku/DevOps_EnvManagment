@@ -46,5 +46,5 @@ stages:
     steps:
     - task: PowerShell@2
       inputs:
-        arguments: "${{parameters.test_env_url}} ${{parameters.ticket_id}} ${{parameters.video_or_screenshot}} '${{parameters.blob_url}''}"
+        arguments: "${{parameters.test_env_url}} ${{parameters.ticket_id}} ${{parameters.video_or_screenshot}} '${{parameters.blob_url}}'"
         filePath: 'db_env_managment_scripts/prova.ps1'
