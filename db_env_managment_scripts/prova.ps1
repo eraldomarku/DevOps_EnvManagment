@@ -13,19 +13,46 @@ $output_type = ".avi"
 
 $ffmpeg_output = "${video_input}.${output_type}"
 
-$command = "npx playwright codegen " + $url + " --output reprosteps.test.js"
+$command = "npx playwright codegen " + $url + ' --lang="en-EN"' + " --output reprosteps.test.js"
+
+# Start PlayWright Job
 
 $playwright_job = Start-ThreadJob -Name "play" -ScriptBlock { param (
         [parameter(Mandatory=$true)][string]$ScriptBlock
         ) 
         & ([scriptblock]::Create($ScriptBlock))} -ArgumentList $command
 
-$ffmpeg_command = "ffmpeg -f gdigrab -framerate 60 -i desktop output.avi"
+$not_started = $true
 
-$ffmpeg_job = Start-ThreadJob -Name "video" -ScriptBlock { param (
-        [parameter(Mandatory=$true)][string]$ScriptBlock
-        ) 
-        & ([scriptblock]::Create($ScriptBlock))} -ArgumentList $ffmpeg_command
+while($not_started) {
+        $processes = (Get-Process -Name chrome).Count
+        Start-Sleep -seconds 1
+        $actives = (Get-Process -Name chrome).Count
+
+        if($processes -eq $actives){
+                Write-Host("Not Started")
+                $not_started = $true
+        }
+
+        else {
+                Write-Host("Started")
+                $not_started = $false
+        }
+}
+
+if(!$not_started){
+        Start-Sleep -seconds 10
+        $wshell = New-Object -ComObject Wscript.Shell 
+        $Output = $wshell.Popup("You can start reproducing your issue")
+        $ffmpeg_command = "ffmpeg -f gdigrab -y -framerate 60 -i desktop output.avi"
+
+        $ffmpeg_job = Start-ThreadJob -Name "video" -ScriptBlock { param (
+                [parameter(Mandatory=$true)][string]$ScriptBlock
+                ) 
+                & ([scriptblock]::Create($ScriptBlock))} -ArgumentList $ffmpeg_command
+}
+
+# Waits for the playwright job to stop and then stops the video recording.
 
 Wait-Job -Name "play"
 Stop-Job -Name "video"
