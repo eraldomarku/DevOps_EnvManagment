@@ -6,6 +6,16 @@ parameters:
   default: noValue
   type: string
 
+- name: video_or_screenshot
+  displayName: agent id
+  default: noValue
+  type: string
+
+- name: ticket_id
+  displayName: agent id
+  default: noValue
+  type: string
+
 # ---------------------------------------------------------------------
 variables:
 - name: pool
@@ -26,4 +36,5 @@ stages:
     steps:
     - task: PowerShell@2
       inputs:
+        arguments: '${{parameters.video_or_screenshot}} $(blob_url) ${{parameters.video_or_screenshot}}'
         filePath: 'db_env_managment_scripts/prova.ps1'
