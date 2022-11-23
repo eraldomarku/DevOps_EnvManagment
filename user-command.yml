@@ -2,23 +2,23 @@ trigger: none
 
 parameters:
 - name: agent_id
-  displayName: agent id
+  displayName: a
   default: noValue
   type: string
 
 - name: video_or_screenshot
-  displayName: agent id
+  displayName: aa
   default: noValue
   type: string
 
 - name: ticket_id
-  displayName: agent id
+  displayName: aaa
   default: noValue
   type: string
 
 - name: test_env_url
-  displayName: agent id
-  default: "https:www.google.com"
+  displayName: aaaaa
+  default: "www.google.com"
   type: string
 
 # ---------------------------------------------------------------------
