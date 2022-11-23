@@ -16,6 +16,11 @@ parameters:
   default: noValue
   type: string
 
+- name: test_env_url
+  displayName: agent id
+  default: "https:www.google.com"
+  type: string
+
 # ---------------------------------------------------------------------
 variables:
 - name: pool
@@ -36,5 +41,5 @@ stages:
     steps:
     - task: PowerShell@2
       inputs:
-        arguments: '${{parameters.video_or_screenshot}} $(blob_url) ${{parameters.ticket_id}}'
+        arguments: '${{parameters.video_or_screenshot}} $(blob_url) ${{parameters.ticket_id}} ${{parameters.test_env_url}}'
         filePath: 'db_env_managment_scripts/prova.ps1'
