@@ -36,5 +36,5 @@ stages:
     steps:
     - task: PowerShell@2
       inputs:
-        arguments: '${{parameters.video_or_screenshot}} $(blob_url) ${{parameters.video_or_screenshot}}'
+        arguments: '${{parameters.video_or_screenshot}} $(blob_url) ${{parameters.ticket_id}}'
         filePath: 'db_env_managment_scripts/prova.ps1'
