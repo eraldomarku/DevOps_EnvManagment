@@ -11,7 +11,7 @@ $blob_url = $args[3]
 $video_input = $ticked_id
 $output_type = ".avi"
 
-$ffmpeg_output = $video_input + $output_type
+$ffmpeg_output = "${video_input}.${output_type}"
 
 $command = "npx playwright codegen " + $url + " --output reprosteps.test.js"
 
