@@ -64,7 +64,7 @@ if("Video" -eq $video_or_screenshot){
 
 }
 
-if ("Video" -eq $video_or_screenshot) {
+if ("Screenshot" -eq $video_or_screenshot) {
     
     $screenshot_input = $ticked_id
     $output_type = ".jpeg"
