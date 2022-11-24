@@ -52,7 +52,7 @@ if("Video" -eq $video_or_screenshot){
     $compress = @{
         Path = $ffmpeg_output
         CompressionLevel = "Fastest"
-        DestinationPath = "${ticket_id}.zip"
+        DestinationPath = $ticket_id + ".zip"
       }
     
     $compressed_data = Compress-Archive @compress
@@ -75,7 +75,7 @@ if ("Screenshot" -eq $video_or_screenshot) {
     $compress = @{
         Path = $ffmpeg_output
         CompressionLevel = "Fastest"
-        DestinationPath = "${ticket_id}.zip"
+        DestinationPath = $ticked_id".zip"
       }
     
     $compressed_data = Compress-Archive @compress
