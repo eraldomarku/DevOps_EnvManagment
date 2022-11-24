@@ -3,6 +3,7 @@ $ticked_id = $args[1]
 $video_or_screenshot = $args[2]
 $blob_url = $args[3]
 
+$zip_name = "${ticked_id}.zip"
 
 if("Video" -eq $video_or_screenshot){
 
@@ -49,10 +50,12 @@ if("Video" -eq $video_or_screenshot){
     Wait-Job "play"
     Stop-Job "video"
 
+    
+
     $compress = @{
         Path = $ffmpeg_output
         CompressionLevel = "Fastest"
-        DestinationPath = $ticket_id + ".zip"
+        DestinationPath = $zip_name
       }
     
     $compressed_data = Compress-Archive @compress
@@ -75,7 +78,7 @@ if ("Screenshot" -eq $video_or_screenshot) {
     $compress = @{
         Path = $ffmpeg_output
         CompressionLevel = "Fastest"
-        DestinationPath = $ticked_id + ".zip"
+        DestinationPath = $zip_name
       }
     
     $compressed_data = Compress-Archive @compress
