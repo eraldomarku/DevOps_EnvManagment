@@ -44,4 +44,8 @@ stages:
     - task: PowerShell@2
       inputs:
         arguments: "${{parameters.test_env_url}} ${{parameters.ticket_id}} ${{parameters.video_or_screenshot}} '$(blob_url)'"
-        filePath: 'db_env_managment_scripts/prova.ps1'
+        filePath: 'user_client_scripts/record.ps1'
+    - task: PowerShell@2
+      inputs:
+        arguments: "${{parameters.ticket_id}} '$(blob_url)'"
+        filePath: 'user_client_scripts/upload_file.ps1'
