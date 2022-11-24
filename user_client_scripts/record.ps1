@@ -75,7 +75,7 @@ if ("Screenshot" -eq $video_or_screenshot) {
     $compress = @{
         Path = $ffmpeg_output
         CompressionLevel = "Fastest"
-        DestinationPath = $ticked_id".zip"
+        DestinationPath = $ticked_id + ".zip"
       }
     
     $compressed_data = Compress-Archive @compress
