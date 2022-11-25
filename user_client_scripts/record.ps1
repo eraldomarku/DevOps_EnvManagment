@@ -49,7 +49,7 @@ if("Video" -eq $video_or_screenshot){
     Wait-Job "play"
     Stop-Job "video"
 
-    node reprostep_processing.js
+    node user_client_scripts/reprostep_processing.js
 
     Remove-Item reprosteps.test.js
 
