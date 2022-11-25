@@ -44,6 +44,7 @@ stages:
         - agent.name -equals $(agent_a)
     steps:
     - task: PowerShell@2
+      displayName: Uploading db into azure blob
       inputs:
         arguments: "$(extract_db_path) $(db_name) '$(blob_url)'" #as blob is a url is passed with ' ' because contains special charcater &
         filePath: $(script_upload_db)
@@ -60,6 +61,7 @@ stages:
         - agent.name -equals $(agent_a)
     steps:
     - task: PowerShell@2
+      displayName: Starting VmB where will be imported the db
       inputs:
         arguments: -command "start" -client_id $(azure_app_id) -client_secret $(azure_app_secret) -username $(username) -password $(password) -ProjectId $(project_id) -EnvironmentId $(environment_id)
         filePath: 'db_env_managment_scripts/start_stop_vm.ps1'
@@ -76,6 +78,7 @@ stages:
         - agent.name -equals $(agent_b)
     steps:
     - task: PowerShell@2
+      displayName: Downloading db from blob to VmB
       inputs:
         arguments: "$(download_db_path) $(db_name) '$(blob_url)'"
         filePath: $(script_download_db)
@@ -144,6 +147,7 @@ stages:
         - agent.name -equals $(agent_a)
     steps:
     - task: PowerShell@2
+      displayName: Stopping VmB 
       inputs:
         arguments: -command "stop" -client_id $(azure_app_id) -client_secret $(azure_app_secret) -username $(username) -password $(password) -ProjectId $(project_id) -EnvironmentId $(environment_id)
         filePath: 'db_env_managment_scripts/start_stop_vm.ps1'
