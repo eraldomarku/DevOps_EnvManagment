@@ -20,7 +20,7 @@ parameters:
 
 - name: test_env_url
   displayName: aaaaa
-  default: "www.google.com"
+  default: "https://devtestgiliebe02a3ff67b3b5edevaos.axcloud.dynamics.com/?cmp=ITCO&mi=DefaultDashboard"
   type: string
 
 name: ${{parameters.ticket_id}}
