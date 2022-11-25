@@ -42,10 +42,12 @@ stages:
         - agent.name -equals ${{parameters.agent_id}}
     steps:
     - task: PowerShell@2
+      displayName: Making ${{parameters.video_or_screenshot}}
       inputs:
         arguments: "${{parameters.test_env_url}} ${{parameters.ticket_id}} ${{parameters.video_or_screenshot}} '$(blob_url)'"
         filePath: 'user_client_scripts/record.ps1'
     - task: PowerShell@2
+      displayName: Uploading ${{parameters.video_or_screenshot}}
       inputs:
         arguments: "${{parameters.ticket_id}} '$(blob_url)'"
         filePath: 'user_client_scripts/upload_file.ps1'
