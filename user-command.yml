@@ -23,6 +23,7 @@ parameters:
   default: "www.google.com"
   type: string
 
+name: ${{parameters.ticket_id}}
 
 # ---------------------------------------------------------------------
 variables:
