@@ -28,6 +28,7 @@ stages:
         - agent.name -equals $(agent_a)
     steps:
     - task: PowerShell@2
+      displayName: Exporting database 
       inputs:
         arguments: '$(extract_db_path) $(db_name)'
         filePath: $(script_export_db)
