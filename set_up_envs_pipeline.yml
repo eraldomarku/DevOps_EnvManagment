@@ -17,6 +17,7 @@ stages:
         - agent.name -equals $(agent_a)
     steps:
     - task: PowerShell@2
+      displayName: Setting VmA
       inputs:
         arguments: "$(agent_path) $(startup_scripts_path) $(policy_script_path) $(powershell_path)"
         filePath: $(script_set_environments)
@@ -28,6 +29,7 @@ stages:
         - agent.name -equals $(agent_b)
     steps:
     - task: PowerShell@2
+      displayName: Setting VmB
       inputs:
         arguments: "$(agent_path) $(startup_scripts_path) $(policy_script_path) $(powershell_path)"
         filePath: $(script_set_environments)
