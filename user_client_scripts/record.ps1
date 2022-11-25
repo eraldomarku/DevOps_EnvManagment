@@ -3,7 +3,6 @@ $ticked_id = $args[1]
 $video_or_screenshot = $args[2]
 $blob_url = $args[3]
 
-$zip_name = "${ticked_id}.zip"
 
 if("Video" -eq $video_or_screenshot){
 
@@ -50,12 +49,14 @@ if("Video" -eq $video_or_screenshot){
     Wait-Job "play"
     Stop-Job "video"
 
-    
+    node reprostep_processing.js
+
+    Remove-Item reprosteps.test.js
 
     $compress = @{
         Path = $ffmpeg_output
         CompressionLevel = "Fastest"
-        DestinationPath = $zip_name
+        DestinationPath = "${ticket_id}.zip"
       }
     
     $compressed_data = Compress-Archive @compress
@@ -65,7 +66,10 @@ if("Video" -eq $video_or_screenshot){
 }
 
 if ("Screenshot" -eq $video_or_screenshot) {
-    
+    do{ Write-Output "When your page is ready, press F2 to take a screenshot.";
+    $x = [System.Console]::ReadKey() 
+    } while( $x.Key -ne "f2" )
+
     $screenshot_input = $ticked_id
     $output_type = ".jpeg"
     $screenshot_ffmpeg_output = "${screenshot_input}${output_type}"
@@ -73,9 +77,9 @@ if ("Screenshot" -eq $video_or_screenshot) {
     ffmpeg -f gdigrab -framerate 1 -i desktop -vframes 1 $screenshot_ffmpeg_output
 
     $compress = @{
-        Path = $screenshot_ffmpeg_output
+        Path = $ffmpeg_output
         CompressionLevel = "Fastest"
-        DestinationPath = $zip_name
+        DestinationPath = "${ticket_id}.zip"
       }
     
     $compressed_data = Compress-Archive @compress
