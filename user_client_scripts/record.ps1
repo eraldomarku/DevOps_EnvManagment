@@ -1,12 +1,13 @@
 $url = $args[0]
-$ticked_id = $args[1]
+$ticket_id = $args[1]
 $video_or_screenshot = $args[2]
 $blob_url = $args[3]
 
+$zipped_name = "${ticket_id}" 
 
 if("Video" -eq $video_or_screenshot){
 
-    $video_input = $ticked_id
+    $video_input = $ticket_id
     $output_type = ".avi"
     $ffmpeg_output = "${video_input}${output_type}"
     $command = "npx playwright codegen " + $url + ' --lang="en-EN"' + " --output reprosteps.test.js"
@@ -69,7 +70,7 @@ if ("Screenshot" -eq $video_or_screenshot) {
     $x = [System.Console]::ReadKey() 
     } while( $x.Key -ne "f2" )
 
-    $screenshot_input = $ticked_id
+    $screenshot_input = $ticket_id
     $output_type = ".jpeg"
     $screenshot_ffmpeg_output = "${screenshot_input}${output_type}"
 
