@@ -35,7 +35,6 @@ if("Video" -eq $video_or_screenshot){
 }
 
     if(!$not_started){
-        Start-Sleep -seconds 10
         $wshell = New-Object -ComObject Wscript.Shell 
         $Output = $wshell.Popup("You can start reproducing your issue")
         $ffmpeg_command = "ffmpeg -f gdigrab -y -framerate 60 -i desktop ${ffmpeg_output}"
