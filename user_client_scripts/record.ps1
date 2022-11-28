@@ -74,7 +74,7 @@ if ("Screenshot" -eq $video_or_screenshot) {
     ffmpeg -f gdigrab -framerate 1 -i desktop -vframes 1 $screenshot_ffmpeg_output
 
     $compress = @{
-        Path = $ffmpeg_output
+        Path = $screenshot_ffmpeg_output
         CompressionLevel = "Fastest"
         DestinationPath = "${ticket_id}.zip"
       }
