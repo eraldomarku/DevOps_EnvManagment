@@ -66,9 +66,6 @@ if("Video" -eq $video_or_screenshot){
 }
 
 if ("Screenshot" -eq $video_or_screenshot) {
-    do{ Write-Output "When your page is ready, press F2 to take a screenshot.";
-    $x = [System.Console]::ReadKey() 
-    } while( $x.Key -ne "f2" )
 
     $screenshot_input = $ticket_id
     $output_type = ".jpeg"
