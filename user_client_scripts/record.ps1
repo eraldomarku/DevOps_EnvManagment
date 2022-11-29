@@ -61,7 +61,7 @@ if("Video" -eq $video_or_screenshot){
     
     $compressed_data = Compress-Archive @compress
 
-    Remove-Item "${ticked_id}.avi"
+    Remove-Item $ffmpeg_output
 
     #Invoke-D365AzCopyTransfer -SourceUri "$compressed_data" -DestinationUri "$blob_url" -ShowOriginalProgress -Force
 
