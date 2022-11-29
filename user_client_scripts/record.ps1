@@ -51,7 +51,7 @@ if("Video" -eq $video_or_screenshot){
 
     node user_client_scripts/reprostep_processing.js
 
-    Remove-Item reprosteps.test.js
+    
 
     $compress = @{
         Path = $ffmpeg_output
@@ -60,6 +60,8 @@ if("Video" -eq $video_or_screenshot){
       }
     
     $compressed_data = Compress-Archive @compress
+
+    Remove-Item "${ticked_id}.avi"
 
     #Invoke-D365AzCopyTransfer -SourceUri "$compressed_data" -DestinationUri "$blob_url" -ShowOriginalProgress -Force
 
@@ -80,7 +82,7 @@ if ("Screenshot" -eq $video_or_screenshot) {
       }
     
     $compressed_data = Compress-Archive @compress
-
+    Remove-Item "${ticked_id}.jpeg"
     #Invoke-D365AzCopyTransfer -SourceUri "$compressed_data" -DestinationUri "$blob_url" -ShowOriginalProgress -Force
 
 }
