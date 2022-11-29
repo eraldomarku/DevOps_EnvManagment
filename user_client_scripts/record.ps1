@@ -10,7 +10,7 @@ if("Video" -eq $video_or_screenshot){
     $video_input = $ticket_id
     $output_type = ".avi"
     $ffmpeg_output = "${video_input}${output_type}"
-    $command = "npx playwright codegen " + $url + ' --lang="en-EN"' + " --output reprosteps.test.js"
+    $command = "npx playwright codegen " + $url + " --output reprosteps.test.js"
 
     $playwright_job = Start-ThreadJob -Name "play" -ScriptBlock { param (
         [parameter(Mandatory=$true)][string]$ScriptBlock
