@@ -82,7 +82,7 @@ if ("Screenshot" -eq $video_or_screenshot) {
       }
     
     $compressed_data = Compress-Archive @compress
-    Remove-Item "${ticked_id}.jpeg"
+    Remove-Item $screenshot_ffmpeg_output
     #Invoke-D365AzCopyTransfer -SourceUri "$compressed_data" -DestinationUri "$blob_url" -ShowOriginalProgress -Force
 
 }
