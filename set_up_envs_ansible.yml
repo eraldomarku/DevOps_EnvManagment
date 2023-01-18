@@ -18,4 +18,4 @@ steps:
     ScriptType: 'FilePath'
     ScriptPath: 'ansible_db_env_management_scripts/setup.ps1'
     ScriptArguments: '-VMName deve4f2cbff76-1 -ResourceGroupName apsiaem01'
-    errorActionPreference: 'Stop'
+    azurePowerShellVersion: LatestVersion
