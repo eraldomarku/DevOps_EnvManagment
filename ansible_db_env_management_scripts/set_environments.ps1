@@ -10,3 +10,5 @@
 #Stop-Computer -s -f
 
 Write-Output "PROVAAAAAA"
+
+Invoke-AzVMCommand -ResourceGroupName apsiaem01 -Name deve4f2cbff76-1 -CommandId RunPowerShellScript -ScriptBlock { dir; Get-Process }
