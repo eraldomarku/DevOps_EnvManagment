@@ -19,10 +19,10 @@ Write-Output "PROVAAAAAA"
 
 #Write-Output $logical_to_physical_names
 
-Connect-AzAccount
-$vm = Get-AzVM -Name 'deve4f2cbff76-1' -ResourceGroupName "apsiaem01"
-$username = $vm.OsProfile.AdminUsername
-Write-Output $username
+#Connect-AzAccount
+#$vm = Get-AzVM -Name 'deve4f2cbff76-1' -ResourceGroupName "apsiaem01"
+#$username = $vm.OsProfile.AdminUsername
+#Write-Output $username
 $password = (Get-AzVMAccessExtension -ResourceGroupName "apsiaem01" -VMName 'deve4f2cbff76-1').PublicSettings.EncryptedPassword | ConvertFrom-Json
 
 Write-Output $password
