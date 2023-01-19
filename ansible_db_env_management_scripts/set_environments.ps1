@@ -14,4 +14,4 @@ Write-Output "PROVAAAAAA"
 #Get-Module -ListAvailable
 #Import-Module Az
 $comands="dir", "Get-Process"
-Invoke-AzVMRunCommand -ResourceGroupName apsiaem01 -VMName deve4f2cbff76-1 -CommandId RunPowerShellScript -ScriptPath $comands
+Invoke-AzVMRunCommand -ResourceGroupName apsiaem01 -VMName deve4f2cbff76-1 -CommandId RunPowerShellScript -ScriptString "dir"
