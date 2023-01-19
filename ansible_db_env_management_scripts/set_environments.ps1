@@ -8,3 +8,5 @@
 #winrm set winrm/config/winrs @{MaxMemoryPerShellMB="512"}
 
 #Stop-Computer -s -f
+
+Write-Output "PROVAAAAAA"
