@@ -7,4 +7,4 @@
 #per impostare la quantità massima di memoria per shell.
 #winrm set winrm/config/winrs @{MaxMemoryPerShellMB="512"}
 
-Stop-Computer -s -f
+#Stop-Computer -s -f
