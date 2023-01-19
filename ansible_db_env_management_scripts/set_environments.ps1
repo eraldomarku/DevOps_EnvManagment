@@ -14,4 +14,6 @@ Write-Output "PROVAAAAAA"
 #Get-Module -ListAvailable
 #Import-Module Az
 $comands="dir", "Get-Process"
-Invoke-AzVMRunCommand -ResourceGroupName apsiaem01 -VMName deve4f2cbff76-1 -CommandId RunPowerShellScript -ScriptString "dir"
+#$logical_to_physical_names=Invoke-SqlCmd -Query "SELECT name, physical_name FROM $sql_db_name.sys.database_files"
+$logical_to_physical_names=Invoke-AzVMRunCommand -ResourceGroupName apsiaem01 -VMName deve4f2cbff76-1 -CommandId RunPowerShellScript -ScriptString 'Invoke-SqlCmd -Query "SELECT name, physical_name FROM $AxDB.sys.database_files | Write-Output'
+Write-Output $logical_to_physical_names
