@@ -15,6 +15,6 @@ Write-Output "PROVAAAAAA"
 #Import-Module Az
 $comands="dir", "Get-Process"
 #$logical_to_physical_names=Invoke-SqlCmd -Query "SELECT name, physical_name FROM $sql_db_name.sys.database_files"
-$logical_to_physical_names=Invoke-AzVMRunCommand -ResourceGroupName apsiaem01 -VMName deve4f2cbff76-1 -CommandId RunPowerShellScript -ScriptString 'Get-WSManInstance -ResourceURI winrm/config/service/auth'
+$logical_to_physical_names=Invoke-AzVMRunCommand -ResourceGroupName apsiaem01 -VMName deve4f2cbff76-1 -CommandId RunPowerShellScript -ScriptString 'winrm enumerate winrm/config/Listener'
 
 Write-Output $logical_to_physical_names
