@@ -13,4 +13,4 @@ Write-Output "PROVAAAAAA"
 Install-Module -Name Az -AllowClobber -Scope CurrentUser
 Get-Module -ListAvailable
 Import-Module Az
-Invoke-AzVMCommand -ResourceGroupName apsiaem01 -Name deve4f2cbff76-1 -CommandId RunPowerShellScript -ScriptBlock { dir; Get-Process }
+Invoke-AzVMRunCommand -ResourceGroupName apsiaem01 -VMName deve4f2cbff76-1 -CommandId RunPowerShellScript -ScriptBlock { dir; Get-Process }
