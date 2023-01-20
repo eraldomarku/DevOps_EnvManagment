@@ -1,0 +1,9 @@
+- name: Run PowerShell command on Windows VM
+  hosts: windows
+  become: false
+  gather_facts: false
+  tasks:
+  - name: Run PowerShell command
+    win_shell: |
+      # Add your PowerShell command here
+      Write-Host "PROVAAAAA"
