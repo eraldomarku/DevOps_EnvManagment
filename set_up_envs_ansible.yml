@@ -14,25 +14,25 @@ stages:
     pool:
       vmImage: 'windows-latest'
     steps:
-    - - task: AzurePowerShell@5
-        displayName: Setting VmA
-        inputs:
-          azureSubscription: $(azure_subscription)
-          ScriptType: 'FilePath'
-          ScriptPath: $(set_environments_script)
-          ScriptArguments: -vmName $(VmA_azure_name) -resourceGroupName $(VmA_resourceGroupName)
-          azurePowerShellVersion: LatestVersion
+    - task: AzurePowerShell@5
+      displayName: Setting VmA
+      inputs:
+        azureSubscription: $(azure_subscription)
+        ScriptType: 'FilePath'
+        ScriptPath: $(set_environments_script)
+        ScriptArguments: -vmName $(VmA_azure_name) -resourceGroupName $(VmA_resourceGroupName)
+        azurePowerShellVersion: LatestVersion
 #  - job: set_VmB
 #    timeoutInMinutes: $[variables['jobs_timeout']]
 #    pool:
 #      vmImage: 'windows-latest'
 #    steps:
-#    - - task: AzurePowerShell@5
-#        displayName: Setting VmB
-#        inputs:
-#          azureSubscription: $(azure_subscription)
-#          ScriptType: 'FilePath'
-#          ScriptPath: $(set_environments_script)
-#          ScriptArguments: -vmName $(VmB_azure_name) -resourceGroupName $(VmB_resourceGroupName)
-#          azurePowerShellVersion: LatestVersion
+#    - task: AzurePowerShell@5
+#      displayName: Setting VmB
+#      inputs:
+#        azureSubscription: $(azure_subscription)
+#        ScriptType: 'FilePath'
+#        ScriptPath: $(set_environments_script)
+#        ScriptArguments: -vmName $(VmB_azure_name) -resourceGroupName $(VmB_resourceGroupName)
+#        azurePowerShellVersion: LatestVersion
 
