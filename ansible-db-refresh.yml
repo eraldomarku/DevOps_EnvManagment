@@ -16,7 +16,7 @@ steps:
   displayName: 'Install winrm module'
 - task: Ansible@0
   inputs:
-    ansibleInterface: 'agentMachine'
-    playbookPathOnAgentMachine: '$(Build.Repository.LocalPath)/ansible_db_env_management_scripts/playbook1.yml'
-    inventoriesAgentMachine: 'file'
-    inventoryFileOnAgentMachine: '$(Build.Repository.LocalPath)/ansible_db_env_management_scripts/inventory'
+    ansibleVersion: '2.10'
+    playbookPath: '$(Build.Repository.LocalPath)/ansible_db_env_management_scripts/playbook1.yml'
+    inventory: '$(Build.Repository.LocalPath)/ansible_db_env_management_scripts/inventory'
+  
