@@ -1,39 +1,15 @@
-#Questo attiverà il servizio WinRM e imposterà alcune configurazioni di base.
-#winrm quickconfig
-#per abilitare l'autenticazione di base
-#winrm set winrm/config/service/auth @{Basic="true"}
-#per consentire la trasmissione di dati non crittografati.
-#winrm set winrm/config/service @{AllowUnencrypted="true"}
-#per impostare la quantità massima di memoria per shell.
-#winrm set winrm/config/winrs @{MaxMemoryPerShellMB="512"}
+param([string]$resourceGroupName, [string]$vmName)
 
-#Stop-Computer -s -f
+#SET WinRM configuration for 
+$comands = '
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12;
+$url = "https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1";
+$file = "$env:temp\ConfigureRemotingForAnsible.ps1";
+(New-Object -TypeName System.Net.WebClient).DownloadFile($url, $file);
+powershell.exe -ExecutionPolicy ByPass -File $file;
+'
 
-Write-Output "PROVAAAAAA"
-#Install-Module -Name Az -AllowClobber -Scope CurrentUser
-#Get-Module -ListAvailable
-#Import-Module Az
-#$comands="dir", "Get-Process"
-#$logical_to_physical_names=Invoke-SqlCmd -Query "SELECT name, physical_name FROM $sql_db_name.sys.database_files"
-#$logical_to_physical_names=Invoke-AzVMRunCommand -ResourceGroupName apsiaem01 -VMName deve4f2cbff76-1 -CommandId RunPowerShellScript -ScriptString 'winrm enumerate winrm/config/Listener'
+Invoke-AzVMRunCommand -ResourceGroupName $resourceGroupName -VMName $vmName -CommandId RunPowerShellScript -ScriptString $comands
 
-#Write-Output $logical_to_physical_names
-
-#Connect-AzAccount
-$vm = Get-AzVM -Name 'deve4f2cbff76-1' -ResourceGroupName "apsiaem01"
-$username = $vm.OsProfile.AdminUsername
-Write-Output $username
-
-$vmName = "deve4f2cbff76-1"
-$resourceGroupName = "apsiaem01"
-
-$credentials = Get-AzVMCredential -ResourceGroupName $resourceGroupName -Name $vmName
-$username = $credentials.Username
-$password = $credentials.Password
-
-#$vmms=Get-AzVmss -ResourceGroupName "apsiaem01"
-
-#Set-AzVMAccessExtension -ResourceGroupName "apsiaem01" -VMName "deve4f2cbff76-1" -Name "Microsoft.Compute" -TypeHandlerVersion "2.4"
-
-#$password = (Get-AzVMAccessExtension -ResourceGroupName "apsiaem01" -Name 'Microsoft.Compute' -VMName 'deve4f2cbff76-1').PublicSettings.EncryptedPassword | ConvertFrom-Json
-#Write-Output $password
+apsiaem01
+deve4f2cbff76-1
