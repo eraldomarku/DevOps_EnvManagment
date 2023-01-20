@@ -5,8 +5,9 @@ pool:
   vmImage: 'windows-latest'
 
 steps:
-- task: Ansible@1
+- task: Ansible@0
   inputs:
-    ansibleType: 'Playbook'
-    playbook: 'ansible_db_env_management_scripts/playbook1.yml'
-    inventory: 'ansible_db_env_management_scripts/inventory'
+    ansibleInterface: 'agentMachine'
+    playbookPathOnAgentMachine: 'ansible_db_env_management_scripts/playbook1.yml'
+    inventoriesAgentMachine: 'file'
+    inventoryFileOnAgentMachine: 'ansible_db_env_management_scripts/inventory'
