@@ -1,9 +1,7 @@
-- name: Run PowerShell command on Windows VM
+- name: win_ping module demo
   hosts: windows
   become: false
   gather_facts: false
   tasks:
-  - name: Run PowerShell command
-    win_shell: |
-      # Add your PowerShell command here
-      Write-Host "PROVAAAAA"
+  - name: test connection
+    ansible.windows.win_ping:
