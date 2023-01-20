@@ -14,7 +14,7 @@ pool:
 steps:
 - task: AzurePowerShell@5
   inputs:
-    azureSubscription: 'Sottoscrizione di Visual Studio Enterprise - MPN(c36034cc-afa8-419f-9f57-7a7221a30b58)'
+    azureSubscription: 'c36034cc-afa8-419f-9f57-7a7221a30b58'
     ScriptType: 'FilePath'
     ScriptPath: '$(System.DefaultWorkingDirectory)/ansible_db_env_management_scripts/set_environments.ps1'
     ScriptArguments: -vmName "deve4f2cbff76-1" -resourceGroupName "apsiaem01"
