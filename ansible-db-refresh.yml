@@ -11,7 +11,7 @@ steps:
     script: |
       sudo apt-get update
       sudo apt-get install python3-pip -y
-      pip3 install pywinrm
+      pip3 install "pywinrm>=0.2.2"
   displayName: 'Install winrm module'
 - task: Ansible@0
   inputs:
