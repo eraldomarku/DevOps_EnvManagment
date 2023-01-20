@@ -1,5 +1,5 @@
 [windows]
-windows2019 ansible_host=20.4.1.2
+windows10 ansible_host=20.4.1.2
 
 [windows:vars]
 ansible_user=Admin5d29d50f69
