@@ -1,0 +1,10 @@
+[windows]
+windows2019 ansible_host=20.4.1.2
+
+[windows:vars]
+ansible_user=Admin5d29d50f69
+ansible_password=mAb@*=WOJ0jY*=VDu@5Gjr8=*1ym5B*w!
+ansible_port=5986
+ansible_connection=winrm
+ansible_winrm_transport=basic
+ansible_winrm_server_cert_validation=ignore
