@@ -17,6 +17,6 @@ steps:
 - task: Ansible@0
   inputs:
     ansibleVersion: '2.10'
-    playbookPath: '$(Build.Repository.LocalPath)/ansible_db_env_management_scripts/playbook1.yml'
-    inventory: '$(Build.Repository.LocalPath)/ansible_db_env_management_scripts/inventory'
+    playbookPath: 'ansible_db_env_management_scripts/playbook1.yml'
+    inventory: 'ansible_db_env_management_scripts/inventory'
   
