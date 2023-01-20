@@ -10,7 +10,8 @@ steps:
     targetType: 'inline'
     script: |
       sudo apt-get update
-      sudo apt-get install python3-pip -y
+      sudo apt-get install python2-pip -y
+      yum autoremove python2-winrm.noarch
       pip3 install "pywinrm>=0.2.2"
   displayName: 'Install winrm module'
 - task: Ansible@0
