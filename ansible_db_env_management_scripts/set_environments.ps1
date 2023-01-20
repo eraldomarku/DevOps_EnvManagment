@@ -24,7 +24,19 @@ $vm = Get-AzVM -Name 'deve4f2cbff76-1' -ResourceGroupName "apsiaem01"
 $username = $vm.OsProfile.AdminUsername
 Write-Output $username
 
-Set-AzVMAccessExtension -ResourceGroupName "apsiaem01" -VMName "deve4f2cbff76-1" -Name "Microsoft.Compute" -TypeHandlerVersion "2.4"
+$vmName = "deve4f2cbff76-1"
+$resourceGroupName = "apsiaem01"
 
-$password = (Get-AzVMAccessExtension -ResourceGroupName "apsiaem01" -Name 'Microsoft.Compute' -VMName 'deve4f2cbff76-1').PublicSettings.EncryptedPassword | ConvertFrom-Json
+$vm = Get-AzVM -Name $vmName -ResourceGroupName $resourceGroupName
+$key = (Get-AzVMDiskEncryptionKey -ResourceGroupName $vm.ResourceGroupName -VMName $vm.Name).SecretUrl
+
+$password = (ConvertFrom-SecureString -SecureString $key).ToString()
 Write-Output $password
+
+
+#$vmms=Get-AzVmss -ResourceGroupName "apsiaem01"
+
+#Set-AzVMAccessExtension -ResourceGroupName "apsiaem01" -VMName "deve4f2cbff76-1" -Name "Microsoft.Compute" -TypeHandlerVersion "2.4"
+
+#$password = (Get-AzVMAccessExtension -ResourceGroupName "apsiaem01" -Name 'Microsoft.Compute' -VMName 'deve4f2cbff76-1').PublicSettings.EncryptedPassword | ConvertFrom-Json
+#Write-Output $password
