@@ -1,22 +1,38 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+trigger: none
 
-trigger:
-- none
+variables:
+  - group: ansible_setup_prova
+  
+#################################################################################################################################################
 
-# Define the pool where the pipeline will run
-pool:
-  vmImage: 'windows-latest'
-
-# Define the steps of the pipeline
-steps:
-- task: AzurePowerShell@5
-  inputs:
-    azureSubscription: 'Sottoscrizione di Visual Studio Enterprise - MPN(c36034cc-afa8-419f-9f57-7a7221a30b58)'
-    ScriptType: 'FilePath'
-    ScriptPath: '$(System.DefaultWorkingDirectory)/ansible_db_env_management_scripts/set_environments.ps1'
-    ScriptArguments: -vmName "deve4f2cbff76-1" -resourceGroupName "apsiaem01"
-    azurePowerShellVersion: LatestVersion
+stages:
+# First stage checks if NuGet, df365.tools are installed and the needed packages as d365sqlpackage and d365AzCopy. Also sets winRM for ansible to reach hosts
+- stage: Set_environments
+  jobs:
+  - job: set_VmA
+    timeoutInMinutes: $[variables['jobs_timeout']]
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+    - - task: AzurePowerShell@5
+        displayName: Setting VmA
+        inputs:
+          azureSubscription: $(azure_subscription)
+          ScriptType: 'FilePath'
+          ScriptPath: $(set_environments_script)
+          ScriptArguments: -vmName $(VmA_azure_name) -resourceGroupName $(VmA_resourceGroupName)
+          azurePowerShellVersion: LatestVersion
+#  - job: set_VmB
+#    timeoutInMinutes: $[variables['jobs_timeout']]
+#    pool:
+#      vmImage: 'windows-latest'
+#    steps:
+#    - - task: AzurePowerShell@5
+#        displayName: Setting VmB
+#        inputs:
+#          azureSubscription: $(azure_subscription)
+#          ScriptType: 'FilePath'
+#          ScriptPath: $(set_environments_script)
+#          ScriptArguments: -vmName $(VmB_azure_name) -resourceGroupName $(VmB_resourceGroupName)
+#          azurePowerShellVersion: LatestVersion
 
