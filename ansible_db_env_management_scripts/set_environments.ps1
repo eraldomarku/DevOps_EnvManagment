@@ -27,12 +27,10 @@ Write-Output $username
 $vmName = "deve4f2cbff76-1"
 $resourceGroupName = "apsiaem01"
 
-$vm = Get-AzVM -Name $vmName -ResourceGroupName $resourceGroupName
-$key = (Get-AzVMDiskEncryptionKey -ResourceGroupName $vm.ResourceGroupName -VMName $vm.Name).SecretUrl
-
-$password = (ConvertFrom-SecureString -SecureString $key).ToString()
+$credentials = Get-AzureRmVMAccessExtension -ResourceGroupName $resourceGroupName -VMName $vmName -Name "VMAccessAgent"
+$username = $credentials.PublicSettings.Username
+$password = $credentials.PublicSettings.Password
 Write-Output $password
-
 
 #$vmms=Get-AzVmss -ResourceGroupName "apsiaem01"
 
