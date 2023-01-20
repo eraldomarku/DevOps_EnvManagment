@@ -1,7 +1,7 @@
 trigger: none
 
 variables:
-  - group: ansible_setup_prova
+  - group: ansible_Setup_environments_variables
   
 #################################################################################################################################################
 
