@@ -10,6 +10,3 @@ powershell.exe -ExecutionPolicy ByPass -File $file;
 '
 
 Invoke-AzVMRunCommand -ResourceGroupName $resourceGroupName -VMName $vmName -CommandId RunPowerShellScript -ScriptString $comands
-
-apsiaem01
-deve4f2cbff76-1
