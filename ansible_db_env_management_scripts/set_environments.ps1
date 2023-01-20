@@ -23,5 +23,5 @@ Write-Output "PROVAAAAAA"
 $vm = Get-AzVM -Name 'deve4f2cbff76-1' -ResourceGroupName "apsiaem01"
 $username = $vm.OsProfile.AdminUsername
 Write-Output $username
-$password = (Get-AzVMAccessExtension -ResourceGroupName "apsiaem01" -VMName 'deve4f2cbff76-1').PublicSettings.EncryptedPassword | ConvertFrom-Json
+$password = (Get-AzVMAccessExtension -ResourceGroupName "apsiaem01" -Name 'Microsoft.Compute' -VMName 'deve4f2cbff76-1').PublicSettings.EncryptedPassword | ConvertFrom-Json
 Write-Output $password
