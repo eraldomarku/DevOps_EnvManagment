@@ -17,6 +17,6 @@ steps:
 - task: Ansible@0
   inputs:
     ansibleInterface: 'agentMachine'
-    playbookPathOnAgentMachine: 'ansible_db_env_management_scripts/playbook1.yml'
+    playbookPathOnAgentMachine: '$(Build.Repository.LocalPath)/ansible_db_env_management_scripts/playbook1.yml'
     inventoriesAgentMachine: 'file'
-    inventoryFileOnAgentMachine: 'ansible_db_env_management_scripts/inventory'
+    inventoryFileOnAgentMachine: '$(Build.Repository.LocalPath)/ansible_db_env_management_scripts/inventory'
