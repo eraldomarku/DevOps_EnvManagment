@@ -14,10 +14,6 @@ steps:
       yum autoremove python2-winrm.noarch
       pip3 install "pywinrm>=0.2.2"
   displayName: 'Install winrm module'
-#- task: Ansible@0
-#  inputs:
-#    ansibleInterface: 'agentMachine'
-#    playbookPathOnAgentMachine: '
 - task: Ansible@0
   inputs:
     ansibleInterface: 'agentMachine'
@@ -31,6 +27,4 @@ steps:
       ansible_port=5986 
       ansible_connection=winrm 
       ansible_winrm_transport=basic
-      ansible_winrm_server_cert_validation=ignore'
-    inventoriesAgentMachine: 'file'
-    inventoryFileOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible_db_env_management_scripts/inventory'  
+      ansible_winrm_server_cert_validation=ignore
