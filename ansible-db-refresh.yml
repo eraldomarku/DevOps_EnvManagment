@@ -9,6 +9,7 @@ steps:
   inputs:
     script: |
       #Install WinRM module for python in controller ubuntu
+      python3 -m pip install --user ansible
       pip install pywinrm
 - task: Ansible@0
   inputs:
