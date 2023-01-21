@@ -5,6 +5,11 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+- task: CmdLine@2
+  inputs:
+    script: |
+      #Install WinRM module for python in controller ubuntu
+      pip install pywinrm
 - task: Ansible@0
   inputs:
     ansibleInterface: 'agentMachine'
