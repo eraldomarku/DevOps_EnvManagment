@@ -20,7 +20,7 @@ steps:
     playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible_db_env_management_scripts/playbook1.yml'
     inventoriesAgentMachine: 'inlineContent'
     inventoryInlineContentAgentMachine: |
-      [windows2019]
+      [win]
       windows2019 ansible_host=20.4.1.2 
       ansible_user=Admin5d29d50f69 
       ansible_password=mAb@*=WOJ0jY*=VDu@5Gjr8=*1ym5B*w!
