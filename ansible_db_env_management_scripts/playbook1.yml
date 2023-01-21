@@ -1,5 +1,5 @@
 - name: win_ping module demo
-  hosts: windows2019
+  hosts: windows
   become: false
   gather_facts: false
   tasks:
