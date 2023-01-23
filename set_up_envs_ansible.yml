@@ -55,7 +55,7 @@ stages:
 #    - task: AzurePowerShell@5
 #      displayName: Setting VmB
 #      inputs:
-#        azureSubscription: $(azure_subscription)
+#        azureSubscription: $(VmB_azure_subscription)
 #        ScriptType: 'FilePath'
 #        ScriptPath: $(set_environments_script)
 #        ScriptArguments: -vmName $(VmB_azure_name) -resourceGroupName $(VmB_resourceGroupName)
