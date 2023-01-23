@@ -3,13 +3,12 @@ Write-Host "Passo 1"
 $nsg_obj = Get-AzNetworkSecurityGroup -Name $networkSecurityGroupName -ResourceGroupName $resourceGroupName
 Write-Host "Passo 2"
 try{
-    Write-Host "Passo 3"
+    #Throws error if that rule does not exist
     $nsg_rule_obj = Get-AzNetworkSecurityRuleConfig -Name $ruleName -NetworkSecurityGroup $nsg_obj    
-    Add-AzNetworkSecurityRuleConfig -Name $ruleName -NetworkSecurityGroup $nsg_obj -Protocol $protocol -SourcePortRange "*" -DestinationPortRange $destinationPort -SourceAddressPrefix "*" -DestinationAddressPrefix "*" -Direction "Inbound" -Access "Allow" -Priority 100
-    Set-AzNetworkSecurityGroup -NetworkSecurityGroup $nsg_obj
-    Write-Host "Passo 4"
+    Write-Host "Rule "$ruleName" already exists"
 }
 catch{
-    Write-Host "Rule "$ruleName" already exists"
-    Write-Host "Passo 5"
+    #If error means that rule does not exist so we create it
+    Add-AzNetworkSecurityRuleConfig -Name $ruleName -NetworkSecurityGroup $nsg_obj -Protocol $protocol -SourcePortRange "*" -DestinationPortRange $destinationPort -SourceAddressPrefix "*" -DestinationAddressPrefix "*" -Direction "Inbound" -Access "Allow" -Priority 100
+    Set-AzNetworkSecurityGroup -NetworkSecurityGroup $nsg_obj    
 }
