@@ -6,6 +6,7 @@ variables:
 #################################################################################################################################################
 
 stages:
+# This stage sets inbound rules ofr network security group associated with vma and vmb to allow connection on WinRM port  
 -stage: Set_network_security_group_rule
  jobs:
  - job: set_nsg_rule_VmA_VmB
