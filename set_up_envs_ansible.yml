@@ -8,12 +8,12 @@ variables:
 
 stages:
 # This stage sets inbound rules ofr network security group associated with vma and vmb to allow connection on WinRM port  
--stage: Set_network_security_group_rule
- jobs:
+- stage: Set_network_security_group_rule
+  jobs:
  - job: set_nsg_rule_VmA_VmB
-   timeoutInMinutes: $[variables['jobs_timeout']]
-   pool:
-    vmImage: 'windows-latest'
+    timeoutInMinutes: $[variables['jobs_timeout']]
+    pool:
+     vmImage: 'windows-latest'
    steps:
    - task: AzurePowerShell@5
       displayName: Setting azure nsg for VmA
@@ -35,18 +35,18 @@ stages:
 - stage: Set_environments
   jobs:
   - job: set_VmA
-    timeoutInMinutes: $[variables['jobs_timeout']]
-    pool:
+     timeoutInMinutes: $[variables['jobs_timeout']]
+     pool:
       vmImage: 'windows-latest'
-    steps:
-    - task: AzurePowerShell@5
-      displayName: Setting VmA
-      inputs:
-        azureSubscription: $(azure_subscription)
-        ScriptType: 'FilePath'
-        ScriptPath: $(set_environments_script)
-        ScriptArguments: -vmName $(VmA_azure_name) -resourceGroupName $(VmA_resourceGroupName)
-        azurePowerShellVersion: LatestVersion
+     steps:
+     - task: AzurePowerShell@5
+       displayName: Setting VmA
+       inputs:
+         azureSubscription: $(azure_subscription)
+         ScriptType: 'FilePath'
+         ScriptPath: $(set_environments_script)
+         ScriptArguments: -vmName $(VmA_azure_name) -resourceGroupName $(VmA_resourceGroupName)
+         azurePowerShellVersion: LatestVersion
 #  - job: set_VmB
 #    timeoutInMinutes: $[variables['jobs_timeout']]
 #    pool:
