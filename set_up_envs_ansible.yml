@@ -21,7 +21,7 @@ stages:
         azureSubscription: $(VmA_azure_subscription)
         ScriptType: 'FilePath'
         ScriptPath: $(set_azure_In_nsg_rule_script)
-        ScriptArguments: -resourceGroupName $(VmA_resourceGroupName) -networkSecurityGroupName $(VmA_nsg_name) -ruleName $(rule_name) -destinationPort $(destination_port)
+        ScriptArguments: -resourceGroupName $(VmA_resourceGroupName) -networkSecurityGroupName $(VmA_nsg_name) -ruleName $(rule_name) -destinationPort $(destination_port) -protocol "Tcp"
         azurePowerShellVersion: LatestVersion
     - task: AzurePowerShell@5
       displayName: Setting azure nsg for VmB
