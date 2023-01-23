@@ -6,7 +6,30 @@ variables:
 #################################################################################################################################################
 
 stages:
-# First stage checks if NuGet, df365.tools are installed and the needed packages as d365sqlpackage and d365AzCopy. Also sets winRM for ansible to reach hosts
+-stage: Set_network_security_group_rule
+ jobs:
+ - job: set_nsg_rule_VmA_VmB
+   timeoutInMinutes: $[variables['jobs_timeout']]
+   pool:
+    vmImage: 'windows-latest'
+   steps:
+   - task: AzurePowerShell@5
+      displayName: Setting azure nsg for VmA
+      inputs:
+        azureSubscription: $(azure_subscription)
+        ScriptType: 'FilePath'
+        ScriptPath: $(set_azure_In_nsg_rule_script)
+        ScriptArguments: -resourceGroupName $(VmA_resourceGroupName) -networkSecurityGroupName $(VmA_nsg_name) -ruleName $(rule_name) -destinationPort $(destination_port)
+        azurePowerShellVersion: LatestVersion
+   - task: AzurePowerShell@5
+      displayName: Setting azure nsg for VmB
+      inputs:
+        azureSubscription: $(azure_subscription)
+        ScriptType: 'FilePath'
+        ScriptPath: $(set_azure_In_nsg_rule_script)
+        ScriptArguments: -resourceGroupName $(VmB_resourceGroupName) -networkSecurityGroupName $(VmB_nsg_name) -ruleName $(rule_name) -destinationPort $(destination_port)
+        azurePowerShellVersion: LatestVersion
+# This stage checks if NuGet, df365.tools are installed and the needed packages as d365sqlpackage and d365AzCopy. Also sets winRM for ansible to reach hosts
 - stage: Set_environments
   jobs:
   - job: set_VmA
