@@ -5,7 +5,7 @@ Write-Host "Passo 2"
 try{
     #Throws error if that rule does not exist
     $nsg_rule_obj = Get-AzNetworkSecurityRuleConfig -Name $ruleName -NetworkSecurityGroup $nsg_obj    
-    Write-Host "Rule "$ruleName" already exists"
+    Write-Host "Rule: $ruleName already exists"
 }
 catch{
     #If error means that rule does not exist so we create it
