@@ -42,7 +42,7 @@ stages:
     - task: AzurePowerShell@5
       displayName: Setting VmA
       inputs:
-         azureSubscription: $(azure_subscription)
+         azureSubscription: $(VmA_azure_subscription)
          ScriptType: 'FilePath'
          ScriptPath: $(set_environments_script)
          ScriptArguments: -vmName $(VmA_azure_name) -resourceGroupName $(VmA_resourceGroupName)
