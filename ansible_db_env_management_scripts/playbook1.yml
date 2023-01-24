@@ -2,6 +2,6 @@
   hosts: windows
   tasks:
   - name: Upload db
-    win_shell: powershell.exe -File {{ script1_path }}
+    win_shell: powershell.exe -File script1_path
     become: yes
     become_method: runas
