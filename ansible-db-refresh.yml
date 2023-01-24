@@ -28,7 +28,7 @@ stages:
         playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible_db_env_management_scripts/playbook1.yml'
         inventoriesAgentMachine: 'file'
         inventoryFileOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible_db_env_management_scripts/inventory'
-        extraVars: '-e script1_path=$(script1_path)'' 
+        extraVars: '-e script1_path=$(script1_path)' 
     
 
       
