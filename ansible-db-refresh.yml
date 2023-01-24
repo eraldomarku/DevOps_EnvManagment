@@ -23,6 +23,7 @@ stages:
           #Install WinRM module for python in controller ubuntu
           python3 -m pip install --user ansible
           pip install pywinrm
+          ls
     - task: Ansible@0
       inputs:
         ansibleInterface: 'agentMachine'
