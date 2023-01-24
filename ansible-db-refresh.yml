@@ -16,7 +16,7 @@ stages:
   - job: export_db
     timeoutInMinutes: 350
     steps:
-    - checkout: DevOps_EnvManagment
+    - checkout: MyGitHubRepo 
     - task: CmdLine@2
       inputs:
         script: |
