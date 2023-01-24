@@ -45,7 +45,7 @@ stages:
          azureSubscription: $(VmA_azure_subscription)
          ScriptType: 'FilePath'
          ScriptPath: $(set_environments_script)
-         ScriptArguments: -vmName $(VmA_azure_name) -resourceGroupName $(VmA_resourceGroupName)
+         ScriptArguments: -vmName $(VmA_azure_name) -resourceGroupName $(VmA_resourceGroupName) -ruleName $(rule_name) -localPort $(destination_port)
          azurePowerShellVersion: LatestVersion
 #  - job: set_VmB
 #    timeoutInMinutes: $[variables['jobs_timeout']]
@@ -58,6 +58,6 @@ stages:
 #        azureSubscription: $(VmB_azure_subscription)
 #        ScriptType: 'FilePath'
 #        ScriptPath: $(set_environments_script)
-#        ScriptArguments: -vmName $(VmB_azure_name) -resourceGroupName $(VmB_resourceGroupName)
+#        ScriptArguments: -vmName $(VmB_azure_name) -resourceGroupName $(VmB_resourceGroupName) -ruleName $(rule_name) -localPort $(destination_port)
 #        azurePowerShellVersion: LatestVersion
 
