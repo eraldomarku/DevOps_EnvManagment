@@ -4,5 +4,5 @@
   gather_facts: false
   tasks:
   - name: Upload db
-    win_shell: powershell.exe -File {{script1_path}} {{db_path}} {{db_name url}}
+    win_shell: powershell.exe -File {{script1_path}} {{db_path}} {{db_name}} {{url}}
     
