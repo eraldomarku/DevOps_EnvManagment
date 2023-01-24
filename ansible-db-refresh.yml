@@ -2,7 +2,7 @@ trigger: none
 ###################################################################################################################################################
 
 variables:
-  - group: ansible_Refresh_DB_Variables
+  - group: Refresh_DB_Variables
 
 ###################################################################################################################################################
 
@@ -28,5 +28,5 @@ stages:
         playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible_db_env_management_scripts/playbook1.yml'
         inventoriesAgentMachine: 'file'
         inventoryFileOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible_db_env_management_scripts/inventory'
-        args: --extra-vars='{"script1_path":"raspberry", "db_path":"dds"}'
+        args: --extra-vars='{"upload_db_script":"$(script_upload_db)", "extract_db_path":"$(extract_db_path)", "db_name":"$(db_name)", "blob_url":"$(blob_url)"}'
       
