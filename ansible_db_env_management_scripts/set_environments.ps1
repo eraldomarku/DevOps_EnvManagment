@@ -1,4 +1,4 @@
-param([string]$resourceGroupName, [string]$vmName)
+param([string]$resourceGroupName, [string]$vmName, [string]$ruleName, [string]$localPort)
 
 
 $comands_winRM_setup = '
@@ -8,6 +8,19 @@ $file = "$env:temp\ConfigureRemotingForAnsible.ps1";
 (New-Object -TypeName System.Net.WebClient).DownloadFile($url, $file);
 powershell.exe -ExecutionPolicy ByPass -File $file;
 '
+
+$comands_firewall_setup = '
+try{
+    #Check if rule exists
+    $firewall_in_rule = Get-NetFirewallRule -DisplayName'+ $ruleName +'
+    Write-Host "Firewall rule inside virtual machine already exists"
+}
+catch{
+    #If not exists it will cerate it
+    New-NetFirewallRule -DisplayName'+$ruleName+' -Direction Inbound -LocalPort '+$localPort+' -Protocol TCP -Action Allow
+}
+'
+
 $comands_d365fotools_setup = '
 # Check if d365fo.tools is installed to eventually delete it and do a fresh install with the packages
 if (Get-Module -ListAvailable -Name d365fo.tools) {
