@@ -1,6 +1,6 @@
 - name: Export and upload database from VmA
   hosts: windows
-tasks:
+  tasks:
   - name: Upload db
     win_shell: powershell.exe -File {{ script1_path }}
     become: yes
