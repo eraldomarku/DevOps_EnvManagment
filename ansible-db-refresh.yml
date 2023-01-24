@@ -16,7 +16,7 @@ stages:
   - job: export_db
     timeoutInMinutes: 350
     steps:
-    - checkout: eraldomarku/DevOps_EnvManagment
+    - checkout: DevOps_EnvManagment
     - task: CmdLine@2
       inputs:
         script: |
