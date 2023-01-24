@@ -1,6 +1,7 @@
 - name: Export and upload database from VmA
   hosts: windows
   become: false
+  gather_facts: false
   tasks:
   - name: Upload db
     win_shell: powershell.exe -File script1_path
