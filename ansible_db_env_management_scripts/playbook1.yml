@@ -1,7 +1,7 @@
-- name: win_ping module demo
+- name: Export and upload database from VmA
   hosts: windows
-  become: false
-  gather_facts: false
-  tasks:
-  - name: test connection
-    ansible.windows.win_ping:
+tasks:
+  - name: Upload db
+    win_shell: powershell.exe -File {{ script1_path }}
+    become: yes
+    become_method: runas
