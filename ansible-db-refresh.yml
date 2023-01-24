@@ -1,29 +1,32 @@
-trigger:
-- none
+trigger: none
+###################################################################################################################################################
+
+variables:
+  - group: ansible_Refresh_DB_Variables
+
+###################################################################################################################################################
 
 pool:
   vmImage: 'ubuntu-latest'
 
-steps:
-- task: CmdLine@2
-  inputs:
-    script: |
-      #Install WinRM module for python in controller ubuntu
-      python3 -m pip install --user ansible
-      pip install pywinrm
-- task: Ansible@0
-  inputs:
-    ansibleInterface: 'agentMachine'
-    playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible_db_env_management_scripts/playbook1.yml'
-    inventoriesAgentMachine: 'inlineContent'
-    inventoryInlineContentAgentMachine: |
-      [windows]
-      windows10 ansible_host=20.4.1.2 
-      [windows:vars]
-      ansible_user=Admin5d29d50f69 
-      ansible_password=mAb@*=WOJ0jY*=VDu@5Gjr8=*1ym5B*w! 
-      ansible_port=52150
-      ansible_connection=winrm 
-      ansible_winrm_transport=basic
-      ansible_winrm_server_cert_validation=ignore
+stages:
+# Second stage extract .bacpac db from VmA    
+- stage: VmA_export_db
+  jobs:
+  - job: export_db
+    timeoutInMinutes: 350
+    steps:
+    - task: CmdLine@2
+      inputs:
+        script: |
+          #Install WinRM module for python in controller ubuntu
+          python3 -m pip install --user ansible
+          pip install pywinrm
+    - task: Ansible@0
+      inputs:
+        ansibleInterface: 'agentMachine'
+        playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible_db_env_management_scripts/playbook1.yml'
+        inventoriesAgentMachine: 'file'
+        inventoryFileOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible_db_env_management_scripts/inventory'
+
       
