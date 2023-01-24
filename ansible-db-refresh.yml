@@ -22,6 +22,12 @@ stages:
           #Install WinRM module for python in controller ubuntu
           python3 -m pip install --user ansible
           pip install pywinrm
+
+- stage: VmA_export_dbhh
+  jobs:
+  - job: export_db
+    timeoutInMinutes: 350
+    steps:
     - task: Ansible@0
       inputs:
         ansibleInterface: 'agentMachine'
