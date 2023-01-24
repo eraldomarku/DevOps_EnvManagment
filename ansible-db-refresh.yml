@@ -16,6 +16,7 @@ stages:
   - job: export_db
     timeoutInMinutes: 350
     steps:
+    - checkout: self
     - task: CmdLine@2
       inputs:
         script: |
