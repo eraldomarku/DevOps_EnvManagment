@@ -10,7 +10,7 @@ powershell.exe -ExecutionPolicy ByPass -File $file;
 '
 
 $comands_firewall_setup = '
-$firewall_in_rule = Get-NetFirewallRule -DisplayName -DisplayName '+$ruleName+ ' 2> $null; 
+$firewall_in_rule = Get-NetFirewallRule -DisplayName '+$ruleName+ ' 2> $null; 
 if ($firewall_in_rule) { 
     Write-Host "Firewall rule inside virtual machine already exists"; 
 } 
