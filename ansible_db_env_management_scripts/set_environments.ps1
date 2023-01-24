@@ -42,4 +42,5 @@ Invoke-D365InstallAzCopy;
 '
 
 Invoke-AzVMRunCommand -ResourceGroupName $resourceGroupName -VMName $vmName -CommandId RunPowerShellScript -ScriptString $comands_winRM_setup
+Invoke-AzVMRunCommand -ResourceGroupName $resourceGroupName -VMName $vmName -CommandId RunPowerShellScript -ScriptString $comands_firewall_setup
 Invoke-AzVMRunCommand -ResourceGroupName $resourceGroupName -VMName $vmName -CommandId RunPowerShellScript -ScriptString $comands_d365fotools_setup
