@@ -28,7 +28,7 @@ stages:
         playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible_db_env_management_scripts/playbook1.yml'
         inventoriesAgentMachine: 'file'
         inventoryFileOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible_db_env_management_scripts/inventory'
-        extraVars: '-e script1_path=$(db_env_managment_scripts/upload_db.ps1 "C:/Bacpacs/" "db_dev_1.bacpac" "https://apsiaem01ada09a20ec1a713.blob.core.windows.net/retail-cdx-down-68719476736?sp=racwdli&st=2022-10-19T10:51:08Z&se=2023-02-02T19:51:08Z&spr=https&sv=2021-06-08&sr=c&sig=kiGgyozma%2FZWom%2BtWz%2F7ynf8rEoXCn3XP5DjigiS65Q%3D")' 
+        extraVars: '-e script1_path = db_env_managment_scripts/upload_db.ps1 "C:/Bacpacs/" "db_dev_1.bacpac" "https://apsiaem01ada09a20ec1a713.blob.core.windows.net/retail-cdx-down-68719476736?sp=racwdli&st=2022-10-19T10:51:08Z&se=2023-02-02T19:51:08Z&spr=https&sv=2021-06-08&sr=c&sig=kiGgyozma%2FZWom%2BtWz%2F7ynf8rEoXCn3XP5DjigiS65Q%3D"' 
     
 
       
