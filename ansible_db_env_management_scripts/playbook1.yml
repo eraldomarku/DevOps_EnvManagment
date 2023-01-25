@@ -3,6 +3,10 @@
   become: false
   gather_facts: false
   tasks:
+  - name: Copy script to target VM
+    win_copy:
+      src: "{{upload_db_script}}"
+      dest: "C:/temp/{{upload_db_script}}"
   - name: Upload db
-    win_shell: powershell.exe -File {{upload_db_script}} {{ extract_db_path }} {{ db_name }} '{{ blob_url }}'
+    win_shell: powershell.exe -File C:/{{upload_db_script}} {{ extract_db_path }} {{ db_name }} '{{ blob_url }}'
     
