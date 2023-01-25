@@ -4,6 +4,8 @@
   gather_facts: false
   tasks:
   - name: Copy script to target VM
+    debug:
+      var: blob_url
     win_copy:
       src: "{{upload_db_script}}"
       dest: "C:/temp/upload_db.ps1"
