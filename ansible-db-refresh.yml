@@ -30,5 +30,5 @@ stages:
         playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible_db_env_management_scripts/playbook1.yml'
         inventoriesAgentMachine: 'file'
         inventoryFileOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible_db_env_management_scripts/inventory'
-        args: --extra-vars='{"upload_db_script":"db_env_managment_scripts/upload_db.ps1", "extract_db_path":"$(extract_db_path)", "db_name":"$(db_name)", "blob_url":"$(blob_url)"}'
+        args: --extra-vars='{"upload_db_script":"$(System.DefaultWorkingDirectory)/db_env_managment_scripts/upload_db.ps1", "extract_db_path":"$(extract_db_path)", "db_name":"$(db_name)", "blob_url":"$(blob_url)"}'
       
