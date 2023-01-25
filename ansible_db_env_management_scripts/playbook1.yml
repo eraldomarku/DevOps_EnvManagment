@@ -4,11 +4,12 @@
   gather_facts: false
   tasks:
   - name: Copy script to target VM
-    debug:
-      var: blob_url
     win_copy:
       src: "{{upload_db_script}}"
       dest: "C:/temp/upload_db.ps1"
   - name: Upload db
-    win_shell: powershell.exe -File "C:/temp/upload_db.ps1" "{{ extract_db_path }}{{ db_name }}" "{{ blob_url }}"
+    win_shell: powershell.exe -File "C:/temp/upload_db.ps1" 
+    args:
+      stdin: "{{ extract_db_path }}{{ db_name }}\n"
+              {{ blob_url }}"
     
