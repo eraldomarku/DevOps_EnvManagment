@@ -10,6 +10,5 @@
   - name: Upload db
     win_shell: powershell.exe -File "C:/temp/upload_db.ps1" 
     args:
-      stdin: "{{ extract_db_path }}{{ db_name }}\n"
-              {{ blob_url }}"
+      stdin: "{{ extract_db_path }}{{ db_name }} {{ blob_url }}"
     
