@@ -6,7 +6,7 @@
   - name: Copy script to target VM
     win_copy:
       src: "{{upload_db_script}}"
-      dest: "C:/temp/upload_db.ps1"
+      dest: "C:/Temp/upload_db.ps1"
   - name: Upload db
-    win_shell: powershell.exe -File "C:/temp/upload_db.ps1" "C:/Bacpacs/db_dev_1.bacpac" "{{ blob_url | urlencode }}"
+    win_shell: powershell.exe -File "C:/Temp/upload_db.ps1" "C:/Bacpacs/db_dev_1.bacpac" "{{ blob_url | urlencode }}"
     
