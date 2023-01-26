@@ -7,6 +7,9 @@
     win_copy:
       src: "{{ upload_db_script }}"
       dest: C:/Temp/upload_db.ps1
+  - name: Write a message to the output
+    debug:
+      msg: "{{ blob_url }}"
   - name: Upload db
     win_shell: powershell.exe -File C:/Temp/upload_db.ps1 C:/Bacpacs/db_dev_1.bacpac '{{ blob_url }}'
     
