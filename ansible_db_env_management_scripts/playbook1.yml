@@ -7,7 +7,7 @@
     win_copy:
       src: "{{ upload_db_script }}"
       dest: C:/Temp/{{ upload_db_script }}
-      force: yes
+      force: no
   - name: Write a message to the output
     debug:
       msg: "{{ blob_url }}"
