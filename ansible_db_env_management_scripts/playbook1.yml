@@ -6,7 +6,7 @@
   - name: Copy script to target VM
     win_copy:
       src: "{{ upload_db_script }}"
-      dest: C:/Temp/{{ upload_db_script }}
+      dest: "C:/Temp/upload_db.ps1"
       force: no
   - name: Write a message to the output
     debug:
