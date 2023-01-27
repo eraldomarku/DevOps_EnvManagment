@@ -61,7 +61,9 @@ stages:
   - job: export_db
     timeoutInMinutes: $[variables['jobs_timeout']]
     pool:
-      vmImage: 'ubuntu-latest'
+      name: Nodepool
+      demands:
+        - agent.name -equals UBUNTU_AGENT
     steps:
     - checkout: self
     - task: CmdLine@2
@@ -77,7 +79,6 @@ stages:
         playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible_db_env_management_scripts/VmB_ops.yml'
         inventoriesAgentMachine: 'file'
         inventoryFileOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible_db_env_management_scripts/inventory'
-        failOnStdErr: false
         args: -vvv --extra-vars='
           script_download_db="$(System.DefaultWorkingDirectory)/$(script_download_db)"
           script_import_db="$(System.DefaultWorkingDirectory)/$(script_import_db)"
