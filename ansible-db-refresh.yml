@@ -76,6 +76,7 @@ stages:
         playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible_db_env_management_scripts/VmB_ops.yml'
         inventoriesAgentMachine: 'file'
         inventoryFileOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible_db_env_management_scripts/inventory'
+        failOnStdErr: false
         args: -vvv --extra-vars='
           script_download_db="$(System.DefaultWorkingDirectory)/$(script_download_db)"
           script_import_db="$(System.DefaultWorkingDirectory)/$(script_import_db)"
