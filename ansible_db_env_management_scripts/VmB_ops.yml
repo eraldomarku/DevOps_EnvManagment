@@ -1,0 +1,43 @@
+- name: Download and import db into VmB
+  hosts: windows
+  become: false
+  gather_facts: false
+  tasks:
+  
+  - name: Copy download_db.ps1 to VmB
+    win_copy:
+      src: "{{ script_download_db }}"
+      dest: "C:/Temp/download_db.ps1"
+  
+  - name: Copy import_db.ps1 to VmB
+    win_copy:
+      src: "{{ script_import_db }}"
+      dest: "C:/Temp/import_db.ps1"
+  
+  - name: Copy start_stop_d365fo_env.ps1 to VmB
+    win_copy:
+      src: "{{ script_start_stop_d365fo }}"
+      dest: "C:/Temp/start_stop_d365fo_env.ps1"
+
+  - name: Copy rename_mdf_ldf.ps1 to VmB
+    win_copy:
+      src: "{{ script_rename_mdf_ldf }}"
+      dest: "C:/Temp/rename_mdf_ldf.ps1"
+
+  - name: Execute download_db.ps1 that downloads database from blob into {{ download_db_path }}
+    win_shell: powershell.exe -File "C:/Temp/download_db.ps1" "{{ download_db_path }}" "{{ db_name }}" "{{ blob_url }}"
+
+  - name: Execute start_stop_d365fo_env.ps1 that stops VmB d365fo environment 
+    win_shell: powershell.exe -File "C:/Temp/start_stop_d365fo_env.ps1" "stop"
+
+  - name: Execute import_db.ps1 that imports downloaded database
+    win_shell: powershell.exe -File "C:/Temp/import_db.ps1" "{{ download_db_path }}" "{{ db_name }}" "{{ sql_db_name }}"
+
+  - name: Execute rename_mdf_ldf.ps1 that renames {{ db_backup_d365fo_name }} logical and physical names as his name
+    win_shell: powershell.exe -File "C:/Temp/rename_mdf_ldf.ps1" "{{ db_backup_d365fo_name }}"
+
+  - name: Execute rename_mdf_ldf.ps1 that renames {{ db_d365fo_name }} logical and physical names as his name
+    win_shell: powershell.exe -File "C:/Temp/rename_mdf_ldf.ps1" "{{ db_d365fo_name }}"
+  
+  - name: Execute start_stop_d365fo_env.ps1 that start VmB d365fo environment 
+    win_shell: powershell.exe -File "C:/Temp/start_stop_d365fo_env.ps1" "start"
