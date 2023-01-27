@@ -9,14 +9,10 @@
       dest: "C:/Temp/export_db.ps1"
   - name: Copy upload_db.ps1 to VmA
     win_copy:
-      src: "{{ script_import_db }}"
+      src: "{{ script_upload_db }}"
       dest: "C:/Temp/upload_db.ps1"
-  - name: export d365fo database from VmA into {{ extract_db_path }}
-    win_shell: powershell.exe -File "C:/Temp/export_db.ps1" "C:/Bacpacs/" "db_dev_1.bacpac" "{{ blob_url }}"
-
-
-
-
+  - name: Execute upload_db.ps1 that export d365fo database from VmA into {{ extract_db_path }}
+    win_shell: powershell.exe -File "C:/Temp/export_db.ps1" "{{ extract_db_path }}" "{{ db_name }}"
   - name: Execute upload_db.ps1 that upload extracted db into a blob
-    win_shell: powershell.exe -File "C:/Temp/upload_db.ps1" "C:/Bacpacs/" "db_dev_1.bacpac" "{{ blob_url }}"
+    win_shell: powershell.exe -File "C:/Temp/upload_db.ps1" "{{ extract_db_path }}" "{{ db_name }}" "{{ blob_url }}"
     
