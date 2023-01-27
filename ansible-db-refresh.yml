@@ -15,7 +15,9 @@ stages:
   - job: export_db
     timeoutInMinutes: $[variables['jobs_timeout']]
     pool:
-      vmImage: 'ubuntu-latest'
+      name: Nodepool
+      demands:
+        - agent.name -equals UBUNTU_AGENT
     steps:
     - checkout: self
     - task: CmdLine@2
