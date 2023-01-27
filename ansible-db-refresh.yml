@@ -30,9 +30,9 @@ stages:
     - task: Ansible@0
       inputs:
         ansibleInterface: 'agentMachine'
-        playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible_db_env_management_scripts/VmA_ops.yml'
+        playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/$(playbook_VmA_ops)'
         inventoriesAgentMachine: 'file'
-        inventoryFileOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible_db_env_management_scripts/inventory'
+        inventoryFileOnAgentMachine: '$(System.DefaultWorkingDirectory)/$(inventory_ansible)'
         args: -vvv --extra-vars='
           script_export_db="$(System.DefaultWorkingDirectory)/$(script_export_db)"
           script_upload_db="$(System.DefaultWorkingDirectory)/$(script_upload_db)" 
@@ -76,9 +76,9 @@ stages:
     - task: Ansible@0
       inputs:
         ansibleInterface: 'agentMachine'
-        playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible_db_env_management_scripts/VmB_ops.yml'
+        playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/$(playbook_VmB_ops)'
         inventoriesAgentMachine: 'file'
-        inventoryFileOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible_db_env_management_scripts/inventory'
+        inventoryFileOnAgentMachine: '$(System.DefaultWorkingDirectory)/$(inventory_ansible)'
         args: -vvv --extra-vars='
           script_download_db="$(System.DefaultWorkingDirectory)/$(script_download_db)"
           script_import_db="$(System.DefaultWorkingDirectory)/$(script_import_db)"
