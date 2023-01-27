@@ -2,19 +2,20 @@ trigger: none
 ###################################################################################################################################################
 
 variables:
-  - group: Refresh_DB_Variables
+  - group: ansible_Refresh_DB_Variables
+  - group: ansible_Setup_environments_variables
+
+
 
 ###################################################################################################################################################
 
-pool:
-  vmImage: 'ubuntu-latest'
-
-stages:
-# Second stage extract .bacpac db from VmA    
-- stage: VmA_export_db
+stages:   
+- stage: VmA_export_db_and_upload
   jobs:
   - job: export_db
-    timeoutInMinutes: 350
+    timeoutInMinutes: $[variables['jobs_timeout']]
+    pool:
+      vmImage: 'ubuntu-latest'
     steps:
     - checkout: self
     - task: CmdLine@2
@@ -37,3 +38,52 @@ stages:
           db_name="$(db_name)" 
           blob_url="$(blob_url)"'
 
+- stage: VmB_start
+  jobs:
+  - job: start_VmB_from_azure
+    timeoutInMinutes: $[variables['jobs_timeout']]
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+    - task: AzurePowerShell@5
+      displayName: Starting VmB
+      inputs:
+         azureSubscription: $(VmB_azure_subscription)
+         ScriptType: 'FilePath'
+         ScriptPath: $(script_start_stop_azure_vm)
+         ScriptArguments: -command start -resourceGroupName $(VmB_resourceGroupName) -vmName $(VmB_azure_name) 
+         azurePowerShellVersion: LatestVersion
+
+- stage: VmB_download_and_import_db
+  jobs:
+  - job: export_db
+    timeoutInMinutes: $[variables['jobs_timeout']]
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - checkout: self
+    - task: CmdLine@2
+      inputs:
+        script: |
+          #Install WinRM module for python in controller ubuntu
+          python3 -m pip install --user ansible
+          pip install pywinrm
+          ls
+    - task: Ansible@0
+      inputs:
+        ansibleInterface: 'agentMachine'
+        playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible_db_env_management_scripts/VmB_ops.yml'
+        inventoriesAgentMachine: 'file'
+        inventoryFileOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible_db_env_management_scripts/inventory'
+        args: -vvv --extra-vars='
+          script_download_db="$(System.DefaultWorkingDirectory)/$(script_download_db)"
+          script_import_db="$(System.DefaultWorkingDirectory)/$(script_import_db)"
+          script_start_stop_d365fo="$(System.DefaultWorkingDirectory)/$(script_start_stop_d365fo)" 
+          script_rename_mdf_ldf="$(System.DefaultWorkingDirectory)/$(script_rename_mdf_ldf)"  
+          download_db_path="$(download_db_path)" 
+          db_name="$(db_name)"
+          blob_url="$(blob_url)"
+          sql_db_name="$(sql_db_name)"
+          db_backup_d365fo_name="$(db_backup_d365fo_name)"
+          db_d365fo_name="$(db_d365fo_name)"
+          '
