@@ -11,7 +11,7 @@
     win_copy:
       src: "{{ script_upload_db }}"
       dest: "C:/Temp/upload_db.ps1"
-  - name: Execute upload_db.ps1 that export d365fo database from VmA into {{ extract_db_path }}
+  - name: Execute export_db.ps1 that export d365fo database from VmA into {{ extract_db_path }}
     win_shell: powershell.exe -File "C:/Temp/export_db.ps1" "{{ extract_db_path }}" "{{ db_name }}"
   - name: Execute upload_db.ps1 that upload extracted db into a blob
     win_shell: powershell.exe -File "C:/Temp/upload_db.ps1" "{{ extract_db_path }}" "{{ db_name }}" "{{ blob_url }}"
