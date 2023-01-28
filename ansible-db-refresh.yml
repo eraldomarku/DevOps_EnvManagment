@@ -33,6 +33,7 @@ stages:
         playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/$(playbook_VmA_ops)'
         inventoriesAgentMachine: 'file'
         inventoryFileOnAgentMachine: '$(System.DefaultWorkingDirectory)/$(inventory_ansible)'
+        failOnStdErr: false
         args: -vvv --extra-vars='
           script_export_db="$(System.DefaultWorkingDirectory)/$(script_export_db)"
           script_upload_db="$(System.DefaultWorkingDirectory)/$(script_upload_db)" 
