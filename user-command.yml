@@ -20,7 +20,7 @@ parameters:
 
 - name: test_env_url
   displayName: aaaaa
-  default: "https://devtestgiliebe02a3ff67b3b5edevaos.axcloud.dynamics.com/?cmp=ITCO%26mi=DefaultDashboard"
+  default: "https://apsiaem017ec7ffe9b035a25bdevaos.axcloud.dynamics.com/?cmp=ITCO"
   type: string
 
 name: ${{parameters.ticket_id}}
