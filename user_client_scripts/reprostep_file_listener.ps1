@@ -1,5 +1,7 @@
 param([string]$reprostep_file_js)
 
+Write-Host "PROVAAA $reprostep_file_js"
+
 $file = "$reprostep_file_js"
 $previousLines = Get-Content $file
 
