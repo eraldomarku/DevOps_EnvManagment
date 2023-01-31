@@ -133,7 +133,7 @@ if("Video" -eq $video_or_screenshot){
                 & ([scriptblock]::Create($ScriptBlock))} -ArgumentList $ffmpeg_command
 
         $current_path= Get-Location
-        $listener_command = "& '${current_path}\user_client_scripts\reprostep_file_listener.ps1' -reprostep_file_js reprosteps.test.js"
+        $listener_command = "& '${current_path}\user_client_scripts\reprostep_file_listener.ps1' -reprostep_file_js ${current_path}\reprosteps.test.js"
         $time_listener_reprostep = Start-ThreadJob -Name "time_listener_reprostep" -ScriptBlock { param (
                 [parameter(Mandatory=$true)][string]$ScriptBlock
                 ) 
@@ -141,9 +141,10 @@ if("Video" -eq $video_or_screenshot){
     }
 
     Wait-Job "play"
-    Stop-Job "video"
-    & "${current_path}\user_client_scripts\reprostep_json_create.ps1" -reprostep_file_js "reprosteps.test.js" -ticket_id "${ticket_id}"
     Stop-Job "time_listener_reprostep"
+    Stop-Job "video"
+    & "${current_path}\user_client_scripts\reprostep_json_create.ps1" -reprostep_file_js "${current_path}\reprosteps.test.js" -ticket_id "${ticket_id}"
+    
 
     node user_client_scripts/reprostep_processing.js
 
