@@ -140,8 +140,8 @@ if("Video" -eq $video_or_screenshot){
     New-Item -ItemType File -Path $filtered_file -Force
     $process = Start-Process -FilePath "powershell.exe" -ArgumentList "-File $current_path\user_client_scripts\reprostep_file_listener.ps1 -file ${current_path}\reprosteps.test.js -steps_filtered_file $filtered_file" -NoNewWindow -PassThru
     Wait-Job "play"
-    & "${current_path}\user_client_scripts\reprostep_json_create.ps1" -file "${current_path}\$filtered_file" -ticket_id "$ticket_id"
     Stop-Job "video"
+    & "${current_path}\user_client_scripts\reprostep_json_create.ps1" -file "${current_path}\$filtered_file" -ticket_id "$ticket_id"
     Stop-Process -Id $process.Id
     
 
