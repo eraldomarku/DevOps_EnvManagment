@@ -125,7 +125,7 @@ if("Video" -eq $video_or_screenshot){
     if(!$not_started){
         #$wshell = New-Object -ComObject Wscript.Shell 
         #$Output = $wshell.Popup("You can start reproducing your issue")
-        $ffmpeg_command = "ffmpeg -f gdigrab -y -framerate 60 -i desktop ${ffmpeg_output}"
+        $ffmpeg_command = "ffmpeg -c:v libx264 -f gdigrab -y -framerate 60 -i desktop ${ffmpeg_output}"
 
         $ffmpeg_job = Start-ThreadJob -Name "video" -ScriptBlock { param (
                 [parameter(Mandatory=$true)][string]$ScriptBlock
