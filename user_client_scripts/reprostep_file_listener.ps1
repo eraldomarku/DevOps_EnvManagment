@@ -1,4 +1,4 @@
-param([string]$file)
+param([string]$file,[string]$steps_filtered_file)
 
 #waits until file is created
 while (!(Test-Path "$file")) {
@@ -15,8 +15,8 @@ while ($true) {
     $modifiedLine = ($currentLines | Compare-Object $previousLines).InputObject
     $matches = [regex]::Match($modifiedLine, "name: '(.*?)'").Groups[1].Value
     if($matches){
-      Add-Content "repro.js" "$(Get-Date -Format HH:mm:ss)"
-      Add-Content "repro.js" "$matches"
+      Add-Content "$steps_filtered_file" "$(Get-Date -Format HH:mm:ss)"
+      Add-Content "$steps_filtered_file" "$matches"
     }
     $previousLines = $currentLines
   }
