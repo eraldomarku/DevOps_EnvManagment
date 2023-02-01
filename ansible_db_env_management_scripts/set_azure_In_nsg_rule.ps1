@@ -1,7 +1,5 @@
 param([string]$resourceGroupName,[string]$networkSecurityGroupName,[string]$ruleName,[string]$destinationPort)
-Write-Host "Passo 1"
 $nsg_obj = Get-AzNetworkSecurityGroup -Name $networkSecurityGroupName -ResourceGroupName $resourceGroupName
-Write-Host "Passo 2"
 try{
     #Throws error if that rule does not exist
     $nsg_rule_obj = Get-AzNetworkSecurityRuleConfig -Name $ruleName -NetworkSecurityGroup $nsg_obj    
