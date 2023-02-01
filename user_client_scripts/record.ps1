@@ -136,6 +136,7 @@ if("Video" -eq $video_or_screenshot){
     }
     #JOB EXECUTING LISTENER THAT SAVES TIME
     $current_path= Get-Location
+    Write-Host $current_path
     $scriptPath = "${current_path}\user_client_scripts\reprostep_file_listener.ps1"
     $argPath = "${current_path}\reprosteps.test.js"
     $process = Start-Process -FilePath "powershell.exe" -ArgumentList "-File $current_path\user_client_scripts\reprostep_file_listener.ps1 -reprostep_file_js ${current_path}\reprosteps.test.js" -NoNewWindow -PassThru
