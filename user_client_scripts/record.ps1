@@ -151,7 +151,8 @@ if("Video" -eq $video_or_screenshot){
     Stop-Process -Id $process.Id
     
     #CONVERT AVI TO MP4
-    ffmpeg -i "$ticket_id.avi" -c:v libx264 -crf 18 -preset slow -c:a aac -b:a 128k -pix_fmt yuv420p "$ticket_id.mp4"
+    ffmpeg -i "$ticket_id.avi" -c:v libx264 -crf 18 -preset slow -vf scale=1280:-2 -c:a aac -b:a 128k -pix_fmt yuv420p "$ticket_id.mp4"
+    #ffmpeg -i "$ticket_id.avi" -c:v libx264 -crf 18 -preset slow -c:a aac -b:a 128k -pix_fmt yuv420p "$ticket_id.mp4"
 
     
     
