@@ -13,10 +13,7 @@ while ($true) {
 
   if ($currentLines.Length -ne $previousLines.Length) {
     $modifiedLine = ($currentLines | Compare-Object $previousLines).InputObject
-    $modifiedLine = "$modifiedLine --- [$(Get-Date -Format HH:mm:ss)]"
-    $index = $currentLines.IndexOf($modifiedLine)
-    $currentLines[$index] = "+++ $modifiedLine"
-    $currentLines | Set-Content $file
+    Add-Content "repro.js" "$(Get-Date -Format HH:mm:ss)"
     Add-Content "repro.js" "$modifiedLine"
     $previousLines = $currentLines
   }
