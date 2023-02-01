@@ -121,14 +121,6 @@ if("Video" -eq $video_or_screenshot){
         }
     }
 
-    #JOB EXECUTING LISTENER THAT SAVES TIME
-    $current_path= Get-Location
-    $scriptPath = "${current_path}\user_client_scripts\reprostep_file_listener.ps1"
-    $argPath = "${current_path}\reprosteps.test.js"
-    $listener_job = Start-Job -ScriptBlock {
-        & $using:scriptPath -reprostep_file_js $using:argPath
-    }
-
 
     if(!$not_started){
         #$wshell = New-Object -ComObject Wscript.Shell 
@@ -142,15 +134,23 @@ if("Video" -eq $video_or_screenshot){
 
         
     }
-    
-
+    #JOB EXECUTING LISTENER THAT SAVES TIME
+    $current_path= Get-Location
+    $scriptPath = "${current_path}\user_client_scripts\reprostep_file_listener.ps1"
+    $argPath = "${current_path}\reprosteps.test.js"
+    Write-Host "PROVAAAAA 2"
+    $listener_job = Start-Job -ScriptBlock {
+        & $using:scriptPath -reprostep_file_js $using:argPath
+    }
+    Write-Host "PROVAAAAA 2 $listener_job"
+    Receive-Job -Job $listener_job
     Wait-Job "play"
     Stop-Job -Job $listener_job
     Stop-Job "video"
     & "${current_path}\user_client_scripts\reprostep_json_create.ps1" -reprostep_file_js "${current_path}\reprosteps.test.js" -ticket_id "$ticket_id"
     
 
-    #node user_client_scripts/reprostep_processing.js
+    # node user_client_scripts/reprostep_processing.js
 
     
 
