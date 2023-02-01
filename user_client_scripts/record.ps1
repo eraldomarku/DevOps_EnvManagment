@@ -84,7 +84,7 @@ public static extern bool SetForegroundWindow(IntPtr hWnd);
 if("Video" -eq $video_or_screenshot){
 
     $video_input = $ticket_id
-    $output_type = ".avi"
+    $output_type = ".mp4"
     $ffmpeg_output = "${video_input}${output_type}"
     $command = "npx playwright codegen " + $url + " --output reprosteps.test.js"
 
