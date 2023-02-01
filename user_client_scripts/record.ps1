@@ -84,7 +84,7 @@ public static extern bool SetForegroundWindow(IntPtr hWnd);
 if("Video" -eq $video_or_screenshot){
 
     $video_input = $ticket_id
-    $output_type = ".mp4"
+    $output_type = ".avi"
     $ffmpeg_output = "${video_input}${output_type}"
     $command = "npx playwright codegen " + $url + " --output reprosteps.test.js"
 
@@ -125,7 +125,7 @@ if("Video" -eq $video_or_screenshot){
     if(!$not_started){
         #$wshell = New-Object -ComObject Wscript.Shell 
         #$Output = $wshell.Popup("You can start reproducing your issue")
-        $ffmpeg_command = "ffmpeg -f gdigrab -y -framerate 60 -i desktop -c:v libx264 -crf 18 -preset slow -c:a aac -b:a 128k -pix_fmt yuv420p ${ffmpeg_output}"
+        $ffmpeg_command = "ffmpeg -f gdigrab -y -framerate 60 -i desktop ${ffmpeg_output}"
 
         $ffmpeg_job = Start-ThreadJob -Name "video" -ScriptBlock { param (
                 [parameter(Mandatory=$true)][string]$ScriptBlock
