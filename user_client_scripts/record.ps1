@@ -160,7 +160,7 @@ if("Video" -eq $video_or_screenshot){
 
     # node user_client_scripts/reprostep_processing.js
 
-    $ffmpeg_output = "$ticket_id.mp4"
+    
 
     $compress = @{
         Path = $ffmpeg_output
