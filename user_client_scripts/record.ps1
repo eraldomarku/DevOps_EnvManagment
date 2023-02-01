@@ -150,6 +150,8 @@ if("Video" -eq $video_or_screenshot){
     # STOP LISTENER TO REPROSTEP FILE
     Stop-Process -Id $process.Id
     
+    #CONVERT AVI TO MP4
+    ffmpeg -i "$ticket_id.avi" -c:v libx264 -crf 18 -preset slow -c:a aac -b:a 128k -pix_fmt yuv420p "$ticket_id.mp4"
 
     
     
@@ -157,7 +159,7 @@ if("Video" -eq $video_or_screenshot){
 
     # node user_client_scripts/reprostep_processing.js
 
-    
+    $ffmpeg_output = "$ticket_id.mp4"
 
     $compress = @{
         Path = $ffmpeg_output
