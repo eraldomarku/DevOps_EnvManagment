@@ -149,7 +149,7 @@ if("Video" -eq $video_or_screenshot){
     Stop-Process -Id $process.Id
     #Stop-Job -Job $listener_job
     Stop-Job "video"
-    #& "${current_path}\user_client_scripts\reprostep_json_create.ps1" -reprostep_file_js "${current_path}\reprosteps.test.js" -ticket_id "$ticket_id"
+    & "${current_path}\user_client_scripts\reprostep_json_create.ps1" -reprostep_file_js "${current_path}\reprosteps.test.js" -ticket_id "$ticket_id"
     
 
     # node user_client_scripts/reprostep_processing.js
