@@ -146,7 +146,7 @@ if("Video" -eq $video_or_screenshot){
     
     #Receive-Job -Job $listener_job
     Wait-Job "play"
-    & "${current_path}\user_client_scripts\reprostep_json_create.ps1" -file "${current_path}\reprosteps.test.js" -ticket_id "$ticket_id"
+    & "${current_path}\user_client_scripts\reprostep_json_create.ps1" -file "${current_path}\repro.js" -ticket_id "$ticket_id"
     Stop-Job "video"
     Stop-Process -Id $process.Id
     #Stop-Job -Job $listener_job
