@@ -6,7 +6,6 @@ while (!(Test-Path "$file")) {
 }
 
 #listens to file
-New-Item -ItemType File -Path "repro.js" -Force
 $previousLines = Get-Content $file
 while ($true) {
   Start-Sleep -Seconds 1

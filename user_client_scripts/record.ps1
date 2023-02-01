@@ -143,12 +143,12 @@ if("Video" -eq $video_or_screenshot){
     #$listener_job = Start-Job -ScriptBlock {
     #    & $using:scriptPath -reprostep_file_js $using:argPath
     #}
-    
+    New-Item -ItemType File -Path "repro.js" -Force
     #Receive-Job -Job $listener_job
     Wait-Job "play"
-    & "${current_path}\user_client_scripts\reprostep_json_create.ps1" -file "${current_path}\repro.js" -ticket_id "$ticket_id"
     Stop-Job "video"
     Stop-Process -Id $process.Id
+    & "${current_path}\user_client_scripts\reprostep_json_create.ps1" -file "${current_path}\repro.js" -ticket_id "$ticket_id"
     #Stop-Job -Job $listener_job
     
     
