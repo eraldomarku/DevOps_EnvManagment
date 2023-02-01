@@ -68,5 +68,5 @@ stages:
     - task: PowerShell@2
       displayName: Listener time
       inputs:
-        arguments: -reprostep_file_js "reprosteps.test.js"
+        arguments: -reprostep_file_js "reprosteps.js"
         filePath: 'user_client_scripts/reprostep_file_listener.ps1'
