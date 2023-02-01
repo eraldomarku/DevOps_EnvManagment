@@ -1,7 +1,7 @@
-param([string]$reprostep_file_js, [string]$ticket_id)
+param([string]$file, [string]$ticket_id)
 
 #### SAVE CONTENT AND TIME IN TWO ARRAYS###
-$line = (Get-Content -Path "$reprostep_file_js" | Select-Object -Last 1)
+$line = (Get-Content -Path "$file" | Select-Object -Last 1)
 $plusArray = $line.Split("+++") | Select-Object -Skip 1
 [array]::Reverse($plusArray)
 $minusArray = $line.Split("---") | Select-Object -Skip 1

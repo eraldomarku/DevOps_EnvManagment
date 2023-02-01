@@ -1,10 +1,12 @@
-param([string]$reprostep_file_js)
+param([string]$file)
 
-Write-Host "PROVAAA $reprostep_file_js"
-$current_path= Get-Location
-$file = "$current_path\$reprostep_file_js"
+#waits until file is created
+while (!(Test-Path "$file")) {
+    Start-Sleep -Seconds 1
+}
+
+#listens to file
 $previousLines = Get-Content $file
-
 while ($true) {
   Start-Sleep -Seconds 1
   $currentLines = Get-Content $file
