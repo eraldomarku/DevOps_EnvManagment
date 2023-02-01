@@ -135,21 +135,21 @@ if("Video" -eq $video_or_screenshot){
         
     }
     #JOB EXECUTING LISTENER THAT SAVES TIME
-    $current_path= Get-Location
-    Write-Host $current_path
-    $scriptPath = "${current_path}\user_client_scripts\reprostep_file_listener.ps1"
-    $argPath = "${current_path}\reprosteps.test.js"
-    $process = Start-Process -FilePath "powershell.exe" -ArgumentList "-File $current_path\user_client_scripts\reprostep_file_listener.ps1 -reprostep_file_js ${current_path}\reprosteps.test.js" -NoNewWindow -PassThru
+    #$current_path= Get-Location
+    #Write-Host $current_path
+    #$scriptPath = "${current_path}\user_client_scripts\reprostep_file_listener.ps1"
+    #$argPath = "${current_path}\reprosteps.test.js"
+    #$process = Start-Process -FilePath "powershell.exe" -ArgumentList "-File $current_path\user_client_scripts\reprostep_file_listener.ps1 -reprostep_file_js ${current_path}\reprosteps.test.js" -NoNewWindow -PassThru
     #$listener_job = Start-Job -ScriptBlock {
     #    & $using:scriptPath -reprostep_file_js $using:argPath
     #}
     
     #Receive-Job -Job $listener_job
     Wait-Job "play"
-    Stop-Process -Id $process.Id
+    #Stop-Process -Id $process.Id
     #Stop-Job -Job $listener_job
     Stop-Job "video"
-    & "${current_path}\user_client_scripts\reprostep_json_create.ps1" -reprostep_file_js "${current_path}\reprosteps.test.js" -ticket_id "$ticket_id"
+    #& "${current_path}\user_client_scripts\reprostep_json_create.ps1" -reprostep_file_js "${current_path}\reprosteps.test.js" -ticket_id "$ticket_id"
     
 
     # node user_client_scripts/reprostep_processing.js
