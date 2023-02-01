@@ -17,7 +17,7 @@ while ($true) {
     $index = $currentLines.IndexOf($modifiedLine)
     $currentLines[$index] = "+++ $modifiedLine"
     $currentLines | Set-Content $file
-    $currentLines | Set-Content "repro.js"
+    Add-Content "repro.js" "$modifiedLine"
     $previousLines = $currentLines
   }
 }
