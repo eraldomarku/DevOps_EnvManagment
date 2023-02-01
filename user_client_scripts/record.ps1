@@ -125,7 +125,7 @@ if("Video" -eq $video_or_screenshot){
     if(!$not_started){
         #$wshell = New-Object -ComObject Wscript.Shell 
         #$Output = $wshell.Popup("You can start reproducing your issue")
-        $ffmpeg_command = "ffmpeg -c:v libx264 -f gdigrab -y -framerate 60 -i desktop ${ffmpeg_output}"
+        $ffmpeg_command = "ffmpeg -f gdigrab -y -framerate 60 -i desktop -c:v libx264 -crf 18 -preset slow -c:a aac -b:a 128k -pix_fmt yuv420p ${ffmpeg_output}"
 
         $ffmpeg_job = Start-ThreadJob -Name "video" -ScriptBlock { param (
                 [parameter(Mandatory=$true)][string]$ScriptBlock
@@ -136,12 +136,18 @@ if("Video" -eq $video_or_screenshot){
     }
     #JOB EXECUTING LISTENER THAT SAVES TIME
     $current_path= Get-Location
+    # FILE WHERE WILL BE SAVED FILTERED PASS WITH ASSOCIATED TIME FOR EACH ROW
     $filtered_file = "steps_filtered_file.txt"
     New-Item -ItemType File -Path $filtered_file -Force
+    # PROCESS THAT LISTENS TO REPROSTEP FILE EDIT AND SAVES TIME FOR EACH STEP
     $process = Start-Process -FilePath "powershell.exe" -ArgumentList "-File $current_path\user_client_scripts\reprostep_file_listener.ps1 -file ${current_path}\reprosteps.test.js -steps_filtered_file $filtered_file" -NoNewWindow -PassThru
+    # WAITS PLAYWRIGHT JOB
     Wait-Job "play"
+    # STOP VIDEO JOB
     Stop-Job "video"
+    # START SCRIPT THAT CREATES JSON WITH CONTENT-TIME OF EACH STEP
     & "${current_path}\user_client_scripts\reprostep_json_create.ps1" -file "${current_path}\$filtered_file" -ticket_id "$ticket_id"
+    # STOP LISTENER TO REPROSTEP FILE
     Stop-Process -Id $process.Id
     
 
