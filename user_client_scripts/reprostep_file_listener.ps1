@@ -13,7 +13,7 @@ while ($true) {
 
   if ($currentLines.Length -ne $previousLines.Length) {
     $modifiedLine = ($currentLines | Compare-Object $previousLines).InputObject
-    $matches = [regex]::Match($modifiedLine, "name: '(.*)'").Groups[1].Value
+    $matches = [regex]::Match($modifiedLine, "name: '(.*?)'").Groups[1].Value
     if($matches){
       Add-Content "repro.js" "$(Get-Date -Format HH:mm:ss)"
       Add-Content "repro.js" "$matches"
