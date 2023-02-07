@@ -1,9 +1,19 @@
-[windows]
-windows10 ansible_host={{ VmA_ansible_host }} 
-[windows:vars]
+[VmA_windows]
+VmA ansible_host={{ VmA_ansible_host }} 
+[VmA_windows:vars]
 ansible_user={{ VmA_ansible_user}} 
 ansible_password={{ VmA_ansible_password }} 
 ansible_port={{ VmA_ansible_port }}
+ansible_connection=winrm 
+ansible_winrm_transport=basic
+ansible_winrm_server_cert_validation=ignore
+
+[VmB_windows]
+VmB ansible_host={{ VmA_ansible_host }} 
+[VmB_windows:vars]
+ansible_user={{ VmB_ansible_user}} 
+ansible_password={{ VmB_ansible_password }} 
+ansible_port={{ VmB_ansible_port }}
 ansible_connection=winrm 
 ansible_winrm_transport=basic
 ansible_winrm_server_cert_validation=ignore

@@ -1,5 +1,5 @@
 - name: Export and upload database from VmA
-  hosts: windows
+  hosts: VmA_windows
   become: false
   gather_facts: false
   tasks:

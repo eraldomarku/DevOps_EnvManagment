@@ -1,5 +1,5 @@
 - name: Download and import db into VmB
-  hosts: windows
+  hosts: VmB_windows
   become: false
   gather_facts: false
   tasks:
