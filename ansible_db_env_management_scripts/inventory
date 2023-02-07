@@ -9,7 +9,7 @@ ansible_winrm_transport=basic
 ansible_winrm_server_cert_validation=ignore
 
 [VmB_windows]
-VmB ansible_host={{ VmA_ansible_host }} 
+VmB ansible_host={{ VmB_ansible_host }} 
 [VmB_windows:vars]
 ansible_user={{ VmB_ansible_user}} 
 ansible_password={{ VmB_ansible_password }} 
