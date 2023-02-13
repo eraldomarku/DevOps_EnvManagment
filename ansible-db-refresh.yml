@@ -59,7 +59,7 @@ stages:
          azureSubscription: $(vmb_azure_subscription)
          ScriptType: 'FilePath'
          ScriptPath: $(script_start_stop_azure_vm)
-         ScriptArguments: -command start -resourceGroupName $(vmb_resourceGroupName) -vmName $(vmb_azure_name) 
+         ScriptArguments: -command start -resourceGroupName $(vmb_resourcegroupname) -vmName $(vmb_azure_name) 
          azurePowerShellVersion: LatestVersion
 
 - stage: VmB_download_and_import_db
