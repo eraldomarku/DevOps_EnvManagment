@@ -30,7 +30,7 @@ stages:
     - task: Ansible@0
       inputs:
         ansibleInterface: 'agentMachine'
-        playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/$(playbook_VmA_ops)'
+        playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/$(playbook_vma_ops)'
         inventoriesAgentMachine: 'file'
         inventoryFileOnAgentMachine: '$(System.DefaultWorkingDirectory)/$(inventory_ansible)'
         failOnStdErr: false
@@ -40,10 +40,10 @@ stages:
           extract_db_path="$(extract_db_path)" 
           db_name="$(db_name)" 
           blob_url="$(blob_url)"
-          VmA_ansible_host = "$(VmA_ansible_host)"
-          VmA_ansible_user = "$(VmA_ansible_user)"
-          VmA_ansible_password = "$(VmA_ansible_password)"
-          VmA_ansible_port = "$(VmA_ansible_port)"
+          VmA_ansible_host = "$(vma_ansible_host)"
+          VmA_ansible_user = "$(vma_ansible_user)"
+          VmA_ansible_password = "$(vma_ansible_password)"
+          VmA_ansible_port = "$(vma_ansible_port)"
           '
 
 - stage: VmB_start
@@ -56,10 +56,10 @@ stages:
     - task: AzurePowerShell@5
       displayName: Starting VmB
       inputs:
-         azureSubscription: $(VmB_azure_subscription)
+         azureSubscription: $(vmb_azure_subscription)
          ScriptType: 'FilePath'
          ScriptPath: $(script_start_stop_azure_vm)
-         ScriptArguments: -command start -resourceGroupName $(VmB_resourceGroupName) -vmName $(VmB_azure_name) 
+         ScriptArguments: -command start -resourceGroupName $(vmb_resourceGroupName) -vmName $(vmb_azure_name) 
          azurePowerShellVersion: LatestVersion
 
 - stage: VmB_download_and_import_db
@@ -82,7 +82,7 @@ stages:
     - task: Ansible@0
       inputs:
         ansibleInterface: 'agentMachine'
-        playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/$(playbook_VmB_ops)'
+        playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/$(playbook_vmb_ops)'
         inventoriesAgentMachine: 'file'
         inventoryFileOnAgentMachine: '$(System.DefaultWorkingDirectory)/$(inventory_ansible)'
         failOnStdErr: false
@@ -97,8 +97,8 @@ stages:
           sql_db_name="$(sql_db_name)"
           db_backup_d365fo_name="$(db_backup_d365fo_name)"
           db_d365fo_name="$(db_d365fo_name)"
-          VmB_ansible_host = "$(VmB_ansible_host)"
-          VmB_ansible_user = "$(VmB_ansible_user)"
-          VmB_ansible_password = "$(VmB_ansible_password)"
-          VmB_ansible_port = "$(VmB_ansible_port)"
+          VmB_ansible_host = "$(vmb_ansible_host)"
+          VmB_ansible_user = "$(vmb_ansible_user)"
+          VmB_ansible_password = "$(vmb_ansible_password)"
+          VmB_ansible_port = "$(vmb_ansible_port)"
           '
