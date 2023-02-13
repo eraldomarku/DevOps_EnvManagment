@@ -18,18 +18,18 @@ stages:
     - task: AzurePowerShell@5
       displayName: Setting azure nsg for VmA
       inputs:
-        azureSubscription: $(VmA_azure_subscription)
+        azureSubscription: $(vma_azure_subscription)
         ScriptType: 'FilePath'
-        ScriptPath: $(set_azure_In_nsg_rule_script)
-        ScriptArguments: -resourceGroupName $(VmA_resourceGroupName) -networkSecurityGroupName $(VmA_nsg_name) -ruleName $(rule_name) -destinationPort $(destination_port)
+        ScriptPath: $(set_azure_in_nsg_rule_script)
+        ScriptArguments: -resourceGroupName $(vma_resourcegroupname) -networkSecurityGroupName $(vma_nsg_name) -ruleName $(rule_name) -destinationPort $(destination_port)
         azurePowerShellVersion: LatestVersion
     - task: AzurePowerShell@5
       displayName: Setting azure nsg for VmB
       inputs:
-        azureSubscription: $(VmB_azure_subscription)
+        azureSubscription: $(vmb_azure_subscription)
         ScriptType: 'FilePath'
-        ScriptPath: $(set_azure_In_nsg_rule_script)
-        ScriptArguments: -resourceGroupName $(VmB_resourceGroupName) -networkSecurityGroupName $(VmB_nsg_name) -ruleName $(rule_name) -destinationPort $(destination_port)
+        ScriptPath: $(set_azure_in_nsg_rule_script)
+        ScriptArguments: -resourceGroupName $(vmb_resourcegroupname) -networkSecurityGroupName $(vmb_nsg_name) -ruleName $(rule_name) -destinationPort $(destination_port)
         azurePowerShellVersion: LatestVersion
 # This stage checks if NuGet, df365.tools are installed and the needed packages as d365sqlpackage and d365AzCopy. Also sets winRM for ansible to reach hosts
 - stage: Set_environments
@@ -42,10 +42,10 @@ stages:
     - task: AzurePowerShell@5
       displayName: Setting VmA
       inputs:
-         azureSubscription: $(VmA_azure_subscription)
+         azureSubscription: $(vma_azure_subscription)
          ScriptType: 'FilePath'
          ScriptPath: $(set_environments_script)
-         ScriptArguments: -vmName $(VmA_azure_name) -resourceGroupName $(VmA_resourceGroupName) -ruleName $(rule_name) -localPort $(destination_port)
+         ScriptArguments: -vmName $(vma_azure_name) -resourceGroupName $(vma_resourceGroupName) -ruleName $(rule_name) -localPort $(destination_port)
          azurePowerShellVersion: LatestVersion
 #  - job: set_VmB
 #    timeoutInMinutes: $[variables['jobs_timeout']]
@@ -55,9 +55,9 @@ stages:
 #    - task: AzurePowerShell@5
 #      displayName: Setting VmB
 #      inputs:
-#        azureSubscription: $(VmB_azure_subscription)
+#        azureSubscription: $(vmb_azure_subscription)
 #        ScriptType: 'FilePath'
 #        ScriptPath: $(set_environments_script)
-#        ScriptArguments: -vmName $(VmB_azure_name) -resourceGroupName $(VmB_resourceGroupName) -ruleName $(rule_name) -localPort $(destination_port)
+#        ScriptArguments: -vmName $(vmb_azure_name) -resourceGroupName $(vmb_resourceGroupName) -ruleName $(rule_name) -localPort $(destination_port)
 #        azurePowerShellVersion: LatestVersion
 
