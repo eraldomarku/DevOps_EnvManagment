@@ -2,8 +2,8 @@ trigger: none
 ###################################################################################################################################################
 
 variables:
-  - group: ansible_Refresh_DB_Variables
-  - group: ansible_Setup_environments_variables
+  - group: Ansible_Refresh_DB_Variables
+  - group: Ansible_Setup_environments_variables
 
 
 
