@@ -30,7 +30,7 @@ stages:
     - task: Ansible@0
       inputs:
         ansibleInterface: 'agentMachine'
-        playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/$(playbook_vma_ops)'
+        playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible_db_env_management_scripts/VmA_ops_prova.yml'
         inventoriesAgentMachine: 'file'
         inventoryFileOnAgentMachine: '$(System.DefaultWorkingDirectory)/$(inventory_ansible)'
         failOnStdErr: false
