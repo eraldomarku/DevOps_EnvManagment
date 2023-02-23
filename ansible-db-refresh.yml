@@ -32,7 +32,7 @@ stages:
         ansibleInterface: 'agentMachine'
         playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible_db_env_management_scripts/VmA_ops_prova.yml'
         inventoriesAgentMachine: 'file'
-        inventoryFileOnAgentMachine: '$(System.DefaultWorkingDirectory)/$(inventory_ansible)'
+        inventoryFileOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible_db_env_management_scripts/inventory.yml'
         failOnStdErr: false
         args: -vvv --extra-vars='
           script_export_db="$(System.DefaultWorkingDirectory)/$(script_export_db)"
