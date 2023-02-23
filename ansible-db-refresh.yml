@@ -42,6 +42,16 @@ stages:
           ansible_connection=winrm 
           ansible_winrm_transport=basic
           ansible_winrm_server_cert_validation=ignore
+
+          [VmB_windows]
+          VmB ansible_host=$(vmb_ansible_host) 
+          [VmB_windows:vars]
+          ansible_user=$(vmb_ansible_user)
+          ansible_password=$(vmb_ansible_password) 
+          ansible_port=$(vmb_ansible_port)
+          ansible_connection=winrm 
+          ansible_winrm_transport=basic
+          ansible_winrm_server_cert_validation=ignore
         failOnStdErr: false
         args: -vvv --extra-vars='
           script_export_db="$(System.DefaultWorkingDirectory)/$(script_export_db)"
