@@ -31,8 +31,17 @@ stages:
       inputs:
         ansibleInterface: 'agentMachine'
         playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible_db_env_management_scripts/VmA_ops_prova.yml'
-        inventoriesAgentMachine: 'file'
-        inventoryFileOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible_db_env_management_scripts/inventory.yml'
+        inventoriesAgentMachine: 'inlineContent'
+        inventoryInlineContentAgentMachine: |
+          [VmA_windows]
+          VmA ansible_host=$(vma_ansible_host) 
+          [VmA_windows:vars]
+          ansible_user=$(vma_ansible_user)
+          ansible_password=$(vma_ansible_password) 
+          ansible_port=$(vma_ansible_port)
+          ansible_connection=winrm 
+          ansible_winrm_transport=basic
+          ansible_winrm_server_cert_validation=ignore
         failOnStdErr: false
         args: -vvv --extra-vars='
           script_export_db="$(System.DefaultWorkingDirectory)/$(script_export_db)"
@@ -40,11 +49,6 @@ stages:
           extract_db_path="$(extract_db_path)" 
           db_name="$(db_name)" 
           blob_url="$(blob_url)"
-          VmA_ansible_host = "$(vma_ansible_host)"
-          VmA_ansible_user = "$(vma_ansible_user)"
-          VmA_ansible_password = "$(vma_ansible_password)"
-          VmA_ansible_port = "$(vma_ansible_port)"
-          '
 
 - stage: VmB_start
   jobs:
