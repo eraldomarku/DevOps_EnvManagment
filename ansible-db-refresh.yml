@@ -30,7 +30,7 @@ stages:
     - task: Ansible@0
       inputs:
         ansibleInterface: 'agentMachine'
-        playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible_db_env_management_scripts/VmA_ops_prova.yml'
+        playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/$(playbook_vma_ops)'
         inventoriesAgentMachine: 'inlineContent'
         inventoryInlineContentAgentMachine: |
           [VmA_windows]
@@ -39,16 +39,6 @@ stages:
           ansible_user=$(vma_ansible_user)
           ansible_password=$(vma_ansible_password) 
           ansible_port=$(vma_ansible_port)
-          ansible_connection=winrm 
-          ansible_winrm_transport=basic
-          ansible_winrm_server_cert_validation=ignore
-
-          [VmB_windows]
-          VmB ansible_host=$(vmb_ansible_host) 
-          [VmB_windows:vars]
-          ansible_user=$(vmb_ansible_user)
-          ansible_password=$(vmb_ansible_password) 
-          ansible_port=$(vmb_ansible_port)
           ansible_connection=winrm 
           ansible_winrm_transport=basic
           ansible_winrm_server_cert_validation=ignore
@@ -98,8 +88,17 @@ stages:
       inputs:
         ansibleInterface: 'agentMachine'
         playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/$(playbook_vmb_ops)'
-        inventoriesAgentMachine: 'file'
-        inventoryFileOnAgentMachine: '$(System.DefaultWorkingDirectory)/$(inventory_ansible)'
+        inventoriesAgentMachine: 'inlineContent'
+        inventoryInlineContentAgentMachine: |
+          [VmB_windows]
+          VmB ansible_host=$(vmb_ansible_host) 
+          [VmB_windows:vars]
+          ansible_user=$(vmb_ansible_user)
+          ansible_password=$(vmb_ansible_password) 
+          ansible_port=$(vmb_ansible_port)
+          ansible_connection=winrm 
+          ansible_winrm_transport=basic
+          ansible_winrm_server_cert_validation=ignore
         failOnStdErr: false
         args: -vvv --extra-vars='
           script_download_db="$(System.DefaultWorkingDirectory)/$(script_download_db)"
@@ -112,8 +111,4 @@ stages:
           sql_db_name="$(sql_db_name)"
           db_backup_d365fo_name="$(db_backup_d365fo_name)"
           db_d365fo_name="$(db_d365fo_name)"
-          VmB_ansible_host = "$(vmb_ansible_host)"
-          VmB_ansible_user = "$(vmb_ansible_user)"
-          VmB_ansible_password = "$(vmb_ansible_password)"
-          VmB_ansible_port = "$(vmb_ansible_port)"
           '
