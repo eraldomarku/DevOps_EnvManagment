@@ -33,8 +33,14 @@
   - name: Execute import_db.ps1 that imports downloaded database
     win_shell: powershell.exe -File "C:/Temp/import_db.ps1" "{{ download_db_path }}" "{{ db_name }}" "{{ sql_db_name }}"
 
+  - name: Execute start_stop_d365fo_env.ps1 that stops VmB d365fo environment 
+    win_shell: powershell.exe -File "C:/Temp/start_stop_d365fo_env.ps1" "stop"
+
   - name: Execute rename_mdf_ldf.ps1 that renames {{ db_backup_d365fo_name }} logical and physical names as his name
     win_shell: powershell.exe -File "C:/Temp/rename_mdf_ldf.ps1" "{{ db_backup_d365fo_name }}"
+
+  - name: Execute start_stop_d365fo_env.ps1 that stops VmB d365fo environment 
+    win_shell: powershell.exe -File "C:/Temp/start_stop_d365fo_env.ps1" "stop"
 
   - name: Execute rename_mdf_ldf.ps1 that renames {{ db_d365fo_name }} logical and physical names as his name
     win_shell: powershell.exe -File "C:/Temp/rename_mdf_ldf.ps1" "{{ db_d365fo_name }}"
